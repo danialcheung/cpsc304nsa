@@ -1,234 +1,189 @@
-package cpsc304nsa;
-
-import cpsc304nsa.Employee;
-//We need to import the java.sql package to use JDBC
-import java.sql.*;  
-//for reading from the command line
-import java.io.*;
-
-//for the login window
-import javax.swing.*;
-
-import java.awt.*;
-import java.awt.event.*;
-
-/*
- * This class implements a graphical login window and a simple text
- * interface for interacting with the branch table 
- */ 
-public class Main implements ActionListener
-{
-	// command line reader 
-	private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-
-	private Connection con;
-
-	// user is allowed 3 login attempts
-	private int loginAttempts = 0;
-
-	// components of the login window
-	private JTextField usernameField;
-	private JPasswordField passwordField;
-	private JFrame mainFrame;
-
-	public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
-
-	/*
-	 * constructs login window and loads JDBC driver
-	 */ 
-	public Main()
-	{
-		mainFrame = new JFrame("User Login");
-
-		JLabel usernameLabel = new JLabel("Enter username: ");
-		JLabel passwordLabel = new JLabel("Enter password: ");
-
-		usernameField = new JTextField(10);
-		passwordField = new JPasswordField(10);
-		passwordField.setEchoChar('*');
-
-		JButton loginButton = new JButton("Log In");
-
-		JPanel contentPane = new JPanel();
-		mainFrame.setContentPane(contentPane);
-
-
-		// layout components using the GridBag layout manager
-
-		GridBagLayout gb = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
-
-		contentPane.setLayout(gb);
-		contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-		// place the username label 
-		c.gridwidth = GridBagConstraints.RELATIVE;
-		c.insets = new Insets(10, 10, 5, 0);
-		gb.setConstraints(usernameLabel, c);
-		contentPane.add(usernameLabel);
-
-		// place the text field for the username 
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.insets = new Insets(10, 0, 5, 10);
-		gb.setConstraints(usernameField, c);
-		contentPane.add(usernameField);
-
-		// place password label
-		c.gridwidth = GridBagConstraints.RELATIVE;
-		c.insets = new Insets(0, 10, 10, 0);
-		gb.setConstraints(passwordLabel, c);
-		contentPane.add(passwordLabel);
-
-		// place the password field 
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.insets = new Insets(0, 0, 10, 10);
-		gb.setConstraints(passwordField, c);
-		contentPane.add(passwordField);
-
-		// place the login button
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.insets = new Insets(5, 10, 10, 10);
-		c.anchor = GridBagConstraints.CENTER;
-		gb.setConstraints(loginButton, c);
-		contentPane.add(loginButton);
-
-		// register password field and OK button with action event handler
-		passwordField.addActionListener(this);
-		loginButton.addActionListener(this);
-
-		// anonymous inner class for closing the window
-		mainFrame.addWindowListener(new WindowAdapter() 
-		{
-			public void windowClosing(WindowEvent e) 
-			{ 
-				System.exit(0); 
-			}
-		});
-
-		// size the window to obtain a best fit for the components
-		mainFrame.pack();
-
-		// center the frame
-		Dimension d = mainFrame.getToolkit().getScreenSize();
-		Rectangle r = mainFrame.getBounds();
-		mainFrame.setLocation( (d.width - r.width)/2, (d.height - r.height)/2 );
-
-		// make the window visible
-		mainFrame.setVisible(true);
-
-		// place the cursor in the text field for the username
-		usernameField.requestFocus();
-
-		try 
-		{
-			// Load the MySQL driver
-			Class.forName(DRIVER_CLASS);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-
-
-	/*
-	 * connects to Oracle database named ug using user supplied username and password
-	 */ 
-	private boolean connect(String username, String password)
-	{
-		//String connectURL = "jdbc:oracle:thin:@localhost:1522:ug"; 
-		String connectURL = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
-
-		try 
-		{
-			con = DriverManager.getConnection(connectURL,username,password);
-
-			System.out.println("\nConnected to MySQL!");
-			return true;
-		}
-		catch (SQLException ex)
-		{
-			System.out.println("Message: " + ex.getMessage());
-			return false;
-		}
-	}
-
-
-	/*
-	 * event handler for login window
-	 */ 
-	public void actionPerformed(ActionEvent e) 
-	{
-		if ( connect(usernameField.getText(), String.valueOf(passwordField.getPassword())) )
-		{
-			// if the username and password are valid, 
-			// remove the login window and display a text menu 
-			mainFrame.dispose();
-			//showMenu();     
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	        System.out.println("Enter the EmployeeID:");
-	         
-	        int employeeId;
-	        try {
-	            employeeId = Integer.parseInt(br.readLine());
-	            Employee employee = getEmployee(employeeId);
-	            System.out.println(employee);           
-	        } catch (NumberFormatException nfe) {
-	            nfe.printStackTrace();
-	        } catch (IOException ioe) {
-	            ioe.printStackTrace();
-	        } 
-		}
-		else
-		{
-			loginAttempts++;
-
-			if (loginAttempts >= 3)
-			{
-				mainFrame.dispose();
-				System.exit(-1);
-			}
-			else
-			{
-				// clear the password
-				passwordField.setText("");
-			}
-		}             
-	}
-
-	/*
-	 * sample query
-	 */
-    public Employee getEmployee(int employeeId)  {      
-        ResultSet rs = null;
-        Statement statement = null; 
-         
-        Employee employee = null;
-        String query = "SELECT * FROM employee WHERE emp_id=" + employeeId;
-        try {           
-            statement = con.createStatement();
-            rs = statement.executeQuery(query);
-            if (rs.next()) {
-                employee = new Employee();
-                employee.setEmpId(rs.getInt("emp_id"));
-                employee.setEmpName(rs.getString("emp_name"));
-                employee.setDob(rs.getDate("dob"));
-                employee.setSalary(rs.getDouble("salary"));
-                employee.setDeptId((rs.getInt("dept_id")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return employee;
-    }
-    
+//package cpsc304nsa;
+//
+////We need to import the java.sql package to use JDBC
+//import java.sql.*;
+//
+////for reading from the command line
+//import java.io.*;
+//
+////for the login window
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.event.*;
+//
+//
+///*
+// * This class implements a graphical login window and a simple text
+// * interface for interacting with the branch table 
+// */ 
+//public class NSA implements ActionListener
+//{
+//	// command line reader 
+//	private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+//
+//	private Connection con;
+//
+//	// user is allowed 3 login attempts
+//	private int loginAttempts = 0;
+//
+//	// components of the login window
+//	private JTextField usernameField;
+//	private JPasswordField passwordField;
+//	private JFrame mainFrame;
+//
+//
+//	/*
+//	 * constructs login window and loads JDBC driver
+//	 */ 
+//	public NSA()
+//	{
+//		mainFrame = new JFrame("User Login");
+//
+//		JLabel usernameLabel = new JLabel("Enter username: ");
+//		JLabel passwordLabel = new JLabel("Enter password: ");
+//
+//		usernameField = new JTextField(10);
+//		passwordField = new JPasswordField(10);
+//		passwordField.setEchoChar('*');
+//
+//		JButton loginButton = new JButton("Log In");
+//
+//		JPanel contentPane = new JPanel();
+//		mainFrame.setContentPane(contentPane);
+//
+//
+//		// layout components using the GridBag layout manager
+//
+//		GridBagLayout gb = new GridBagLayout();
+//		GridBagConstraints c = new GridBagConstraints();
+//
+//		contentPane.setLayout(gb);
+//		contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+//
+//		// place the username label 
+//		c.gridwidth = GridBagConstraints.RELATIVE;
+//		c.insets = new Insets(10, 10, 5, 0);
+//		gb.setConstraints(usernameLabel, c);
+//		contentPane.add(usernameLabel);
+//
+//		// place the text field for the username 
+//		c.gridwidth = GridBagConstraints.REMAINDER;
+//		c.insets = new Insets(10, 0, 5, 10);
+//		gb.setConstraints(usernameField, c);
+//		contentPane.add(usernameField);
+//
+//		// place password label
+//		c.gridwidth = GridBagConstraints.RELATIVE;
+//		c.insets = new Insets(0, 10, 10, 0);
+//		gb.setConstraints(passwordLabel, c);
+//		contentPane.add(passwordLabel);
+//
+//		// place the password field 
+//		c.gridwidth = GridBagConstraints.REMAINDER;
+//		c.insets = new Insets(0, 0, 10, 10);
+//		gb.setConstraints(passwordField, c);
+//		contentPane.add(passwordField);
+//
+//		// place the login button
+//		c.gridwidth = GridBagConstraints.REMAINDER;
+//		c.insets = new Insets(5, 10, 10, 10);
+//		c.anchor = GridBagConstraints.CENTER;
+//		gb.setConstraints(loginButton, c);
+//		contentPane.add(loginButton);
+//
+//		// register password field and OK button with action event handler
+//		passwordField.addActionListener(this);
+//		loginButton.addActionListener(this);
+//
+//		// anonymous inner class for closing the window
+//		mainFrame.addWindowListener(new WindowAdapter() 
+//		{
+//			public void windowClosing(WindowEvent e) 
+//			{ 
+//				System.exit(0); 
+//			}
+//		});
+//
+//		// size the window to obtain a best fit for the components
+//		mainFrame.pack();
+//
+//		// center the frame
+//		Dimension d = mainFrame.getToolkit().getScreenSize();
+//		Rectangle r = mainFrame.getBounds();
+//		mainFrame.setLocation( (d.width - r.width)/2, (d.height - r.height)/2 );
+//
+//		// make the window visible
+//		mainFrame.setVisible(true);
+//
+//		// place the cursor in the text field for the username
+//		usernameField.requestFocus();
+//
+//		try 
+//		{
+//			// Load the Oracle JDBC driver
+//			DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+//		}
+//		catch (SQLException ex)
+//		{
+//			System.out.println("Message: " + ex.getMessage());
+//			System.exit(-1);
+//		}
+//	}
+//
+//
+//	/*
+//	 * connects to Oracle database named ug using user supplied username and password
+//	 */ 
+//	private boolean connect(String username, String password)
+//	{
+//		String connectURL = "jdbc:oracle:thin:@localhost:1522:ug"; 
+//
+//		try 
+//		{
+//			con = DriverManager.getConnection(connectURL,username,password);
+//
+//			System.out.println("\nConnected to Oracle!");
+//			return true;
+//		}
+//		catch (SQLException ex)
+//		{
+//			System.out.println("Message: " + ex.getMessage());
+//			return false;
+//		}
+//	}
+//
+//
+//	/*
+//	 * event handler for login window
+//	 */ 
+//	public void actionPerformed(ActionEvent e) 
+//	{
+//		if ( connect(usernameField.getText(), String.valueOf(passwordField.getPassword())) )
+//		{
+//			// if the username and password are valid, 
+//			// remove the login window and display a text menu 
+//			mainFrame.dispose();
+//			showMenu();     
+//		}
+//		else
+//		{
+//			loginAttempts++;
+//
+//			if (loginAttempts >= 3)
+//			{
+//				mainFrame.dispose();
+//				System.exit(-1);
+//			}
+//			else
+//			{
+//				// clear the password
+//				passwordField.setText("");
+//			}
+//		}             
+//
+//	}
+//
+//
 //	/*
 //	 * displays simple text interface
 //	 */ 
@@ -510,7 +465,7 @@ public class Main implements ActionListener
 //
 //			System.out.println(" ");
 //
-//			while(rs.next() && !rs.wasNull())
+//			while(rs.next())
 //			{
 //				// for display purposes get everything from Oracle 
 //				// as a string
@@ -556,10 +511,11 @@ public class Main implements ActionListener
 //			System.out.println("Message: " + ex.getMessage());
 //		}	
 //	}
-
-
-	public static void main(String args[])
-	{
-		Main b = new Main();
-	}
-}
+//
+//
+//	public static void main(String args[])
+//	{
+//		NSA b = new NSA();
+//	}
+//}
+//
