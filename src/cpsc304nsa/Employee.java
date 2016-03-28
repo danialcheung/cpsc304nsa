@@ -1,6 +1,6 @@
 package cpsc304nsa;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Employee {
      
@@ -41,7 +41,6 @@ public class Employee {
         return deptId;
     }
      
-    //toString()
     @Override
     public String toString() {
         return "Employee [empId=" + empId + ", empName=" + empName + ", dob="

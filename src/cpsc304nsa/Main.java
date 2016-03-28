@@ -1,6 +1,5 @@
 package cpsc304nsa;
 
-import cpsc304nsa.Employee;
 //We need to import the java.sql package to use JDBC
 import java.sql.*;  
 //for reading from the command line
@@ -131,12 +130,11 @@ public class Main implements ActionListener
 
 
 	/*
-	 * connects to Oracle database named ug using user supplied username and password
+	 * connects to MySQL database named ug using user supplied username and password
 	 */ 
 	private boolean connect(String username, String password)
 	{
-		//String connectURL = "jdbc:oracle:thin:@localhost:1522:ug"; 
-		String connectURL = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
+		String connectURL = "jdbc:mysql://localhost:3306/nsa?useSSL=false";
 
 		try 
 		{
@@ -163,20 +161,36 @@ public class Main implements ActionListener
 			// if the username and password are valid, 
 			// remove the login window and display a text menu 
 			mainFrame.dispose();
-			//showMenu();     
+			//showMenu();    
+			
+			// for sample program for testing:
+//			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//	        System.out.println("Enter the EmployeeID:");
+//	         
+//	        int employeeId;
+//	        try {
+//	            employeeId = Integer.parseInt(br.readLine());
+//	            Employee employee = getEmployee(employeeId);
+//	            System.out.println(employee);           
+//	        } catch (NumberFormatException nfe) {
+//	            nfe.printStackTrace();
+//	        } catch (IOException ioe) {
+//	            ioe.printStackTrace();
+//	        } 
+			
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	        System.out.println("Enter the EmployeeID:");
+	        System.out.println("Enter the DeviceID:");
 	         
-	        int employeeId;
+	        int deviceId;
 	        try {
-	            employeeId = Integer.parseInt(br.readLine());
-	            Employee employee = getEmployee(employeeId);
-	            System.out.println(employee);           
+	            deviceId = Integer.parseInt(br.readLine());
+	            Device device = getDevice(deviceId);
+	            System.out.println(device);           
 	        } catch (NumberFormatException nfe) {
 	            nfe.printStackTrace();
 	        } catch (IOException ioe) {
 	            ioe.printStackTrace();
-	        } 
+	        }
 		}
 		else
 		{
@@ -195,25 +209,21 @@ public class Main implements ActionListener
 		}             
 	}
 
-	/*
-	 * sample query
-	 */
-    public Employee getEmployee(int employeeId)  {      
+    public Device getDevice(int deviceId)  {      
         ResultSet rs = null;
         Statement statement = null; 
          
-        Employee employee = null;
-        String query = "SELECT * FROM employee WHERE emp_id=" + employeeId;
+        Device device = null;
+        String query = "SELECT * FROM device WHERE device_id=" + deviceId;
         try {           
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             if (rs.next()) {
-                employee = new Employee();
-                employee.setEmpId(rs.getInt("emp_id"));
-                employee.setEmpName(rs.getString("emp_name"));
-                employee.setDob(rs.getDate("dob"));
-                employee.setSalary(rs.getDouble("salary"));
-                employee.setDeptId((rs.getInt("dept_id")));
+            	device = new Device();
+            	device.setDevId(rs.getInt("device_id"));
+            	device.setOwner(rs.getString("owner"));
+            	device.setModel(rs.getString("model"));
+            	device.setDevType(rs.getString("device_type"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -226,8 +236,42 @@ public class Main implements ActionListener
                 }
             }
         }
-        return employee;
+        return device;
     }
+    
+//	/*
+//	 * sample query for testing
+//	 */
+//    public Employee getEmployee(int employeeId)  {      
+//        ResultSet rs = null;
+//        Statement statement = null; 
+//         
+//        Employee employee = null;
+//        String query = "SELECT * FROM employee WHERE emp_id=" + employeeId;
+//        try {           
+//            statement = con.createStatement();
+//            rs = statement.executeQuery(query);
+//            if (rs.next()) {
+//                employee = new Employee();
+//                employee.setEmpId(rs.getInt("emp_id"));
+//                employee.setEmpName(rs.getString("emp_name"));
+//                employee.setDob(rs.getDate("dob"));
+//                employee.setSalary(rs.getDouble("salary"));
+//                employee.setDeptId((rs.getInt("dept_id")));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (con != null) {
+//                try {
+//                    con.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return employee;
+//    }
     
 //	/*
 //	 * displays simple text interface
@@ -512,7 +556,7 @@ public class Main implements ActionListener
 //
 //			while(rs.next() && !rs.wasNull())
 //			{
-//				// for display purposes get everything from Oracle 
+//				// for display purposes get everything from MySQL 
 //				// as a string
 //
 //				// simplified output formatting; truncation may occur
@@ -560,6 +604,6 @@ public class Main implements ActionListener
 
 	public static void main(String args[])
 	{
-		Main b = new Main();
+		Main main = new Main();
 	}
 }
