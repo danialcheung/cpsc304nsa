@@ -2,7 +2,7 @@ package cpsc304nsa.tables;
 
 import java.sql.Timestamp;
 
-public abstract class Data {
+public class Data {
 
 	private int dataId;
 	private Timestamp date;
