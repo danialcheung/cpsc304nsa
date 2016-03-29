@@ -1,3 +1,4 @@
+package cpsc304nsa.main;
 //package cpsc304nsa;
 //
 ////We need to import the java.sql package to use JDBC

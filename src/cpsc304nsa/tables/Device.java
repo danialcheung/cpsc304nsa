@@ -1,4 +1,4 @@
-package cpsc304nsa;
+package cpsc304nsa.tables;
 
 public class Device {
      
