@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 
 import cpsc304nsa.tables.*;
+import cpsc304nsa.main.AttrType;
+import cpsc304nsa.main.Pair;;
 
 public class Query {
 	private BufferedReader br;
@@ -53,9 +55,9 @@ public class Query {
 		return table;
 	}
 
-	protected String selectAttr(Table t) {
-		String result = "";
-
+	protected Pair<AttrType, String> selectAttr(Table t) {
+		Pair<AttrType, String> result = null;
+		
 		System.out.println("select an attribute:");
 		int i;
 		for (i = 0; i < t.getAttrs().size(); i++) {
@@ -66,13 +68,13 @@ public class Query {
 		try {
 			int input = Integer.parseInt(br.readLine());
 			if (input == (i + 1)) {
-				return result;
+				return null;
 			} else if (input > t.getAttrs().size() ||
 				input <= 0) {
 				System.out.println("invalid input");
 				result = selectAttr(t);
 			} else {
-			result = t.getAttrs().get(input - 1).getRight();
+			result = t.getAttrs().get(input - 1);
 			}
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
@@ -91,6 +93,33 @@ public class Query {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+		return result;
+	}
+	
+	protected String attrEqualsValString(Pair<AttrType, String> attr, String val) {
+		String result = "";
+		switch (attr.getLeft()) {
+		case INT: 
+			result = attr.getRight() + "=" + val;
+			break;
+		case BOOL:
+			result = attr.getRight() + "=" + (val.equals("true") ? "0" : val);
+			break;
+		case FLOAT: 
+			result = "CAST(" + attr.getRight() + " AS DECIMAL) = CAST(" + val + " AS DECIMAL)";
+			break;
+		case STRING: 
+			result = attr.getRight() + "=\"" + val + "\"";
+			break;
+		case DATETIME: 
+			// TODO
+			result = attr.getRight() + " BETWEEN '" + val + "' AND '" + val + "'";
+			break;
+		default:
+			System.out.println("something went wrong");
+			break;
+		}
+		
 		return result;
 	}
 

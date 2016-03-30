@@ -16,26 +16,25 @@ import cpsc304nsa.tables.Table;
 public class Selection extends Query {
 	
 	private Table table;
-	private Stack<Pair<String,String>> attrVals;
+	private Stack<Pair<Pair<AttrType, String>, String>> attrVals;
 	
 	public Selection(Connection con) {
 		super(con);
-		this.attrVals = new Stack<Pair<String,String>>();
+		this.attrVals = new Stack<Pair<Pair<AttrType,String>,String>>();
 	}
 	
 	public void select() {
 		table = selectTable();
-		String attr;
+		Pair<AttrType, String> attr;
 		String val;
 		
 		do {
-			// There is nothing here to protect duplicate attrs
 			attr = selectAttr(table);
-			if (attr == "") { break; }
+			if (attr == null) { break; }
 			val = enterInput();
 			if (val == "") { break; }
 			attrVals.push(new Pair(attr,val));
-		} while (attr != "" && val != "");
+		} while (attr != null && val != "");
 		
 		String query = buildQuery();
 		System.out.println("query: " + query);
@@ -45,15 +44,15 @@ public class Selection extends Query {
 	
 	private String buildQuery() {
         String query = "SELECT * FROM " + table.getName();
-        Pair<String,String> av;
+        Pair<Pair<AttrType,String>,String> av;
         if (attrVals.size() > 0) {
         	av  = attrVals.pop();
-        	query += " WHERE " +  av.getLeft() + "=" + av.getRight();
+        	query += " WHERE " +  attrEqualsValString(av.getLeft(),av.getRight());
         }
         
         while (attrVals.size() > 0) {
         	av = attrVals.pop();
-        	query += " AND " + av.getLeft() + "=" + av.getRight();
+        	query += " AND " + attrEqualsValString(av.getLeft(),av.getRight());
         }
         
         query += ";";
