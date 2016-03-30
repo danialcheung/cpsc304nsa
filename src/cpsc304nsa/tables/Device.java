@@ -57,7 +57,7 @@ public class Device implements Table {
     }
 	@Override
 	public List<String> getAttrs() {
-		return Arrays.asList("devId", "owner", "model", "lat", "lng", "devType");
+		return Arrays.asList("device_id", "owner", "model", "lat", "lng", "device_type");
 	}
 	@Override
 	public String getName() {
