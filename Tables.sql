@@ -21,30 +21,30 @@ CREATE TABLE Device (
   device_id INT NOT NULL ,
   owner VARCHAR(20) NULL ,
   model VARCHAR(20) NULL ,
-  lat FLOAT NOT NULL ,
-  lng FLOAT NOT NULL ,
+  lat FLOAT NULL ,
+  lng FLOAT NULL ,
   device_type VARCHAR(20),
   PRIMARY KEY (device_id),
-  FOREIGN KEY (lat, lng) REFERENCES Location(lat, lng)
+  FOREIGN KEY (lat, lng) REFERENCES Location(lat, lng) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE Data (
   data_id    INT      NOT NULL,
   date       DATETIME NULL,
   suspicious BOOLEAN  NULL,
-  lat        FLOAT    NOT NULL,
-  lng        FLOAT    NOT NULL,
+  lat        FLOAT    NULL,
+  lng        FLOAT    NULL,
   device_id  INT      NOT NULL,
   PRIMARY KEY (data_id),
-  FOREIGN KEY (lat, lng) REFERENCES Location(lat, lng),
-  FOREIGN KEY (device_id) REFERENCES Device (device_id)
+  FOREIGN KEY (lat, lng) REFERENCES Location(lat, lng) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (device_id) REFERENCES Device (device_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE CommLog(
-  data_id INT NOT NULL,
+  data_id INT NULL,
   sender INT NULL,
   reciever INT NULL,
-  FOREIGN KEY (data_id) REFERENCES Data(data_id)
+  FOREIGN KEY (data_id) REFERENCES Data(data_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE `Call`(
@@ -52,28 +52,28 @@ CREATE TABLE `Call`(
   beginning DATETIME NULL,
   end DATETIME NULL,
   PRIMARY KEY (data_id),
-  FOREIGN KEY (data_id) REFERENCES CommLog(data_id)
+  FOREIGN KEY (data_id) REFERENCES CommLog(data_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Text (
   data_id INT NOT NULL,
   length INT NULL,
   PRIMARY KEY (data_id),
-  FOREIGN KEY (data_id) REFERENCES CommLog(data_id)
+  FOREIGN KEY (data_id) REFERENCES CommLog(data_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Photo (
   data_id INT NOT NULL,
   size INT NULL,
   PRIMARY KEY (data_id),
-  FOREIGN KEY (data_id) REFERENCES Data(data_id)
+  FOREIGN KEY (data_id) REFERENCES Data(data_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Transaction (
   data_id INT NOT NULL,
   amount FLOAT NULL,
   PRIMARY KEY (data_id),
-  FOREIGN KEY (data_id) REFERENCES Data(data_id)
+  FOREIGN KEY (data_id) REFERENCES Data(data_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -86,7 +86,7 @@ CREATE TABLE CIA(
   user_id INT NOT NULL ,
   country VARCHAR(20) NULL ,
   PRIMARY KEY (user_id),
-  FOREIGN KEY (user_id) REFERENCES User(user_id)
+  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Police(
