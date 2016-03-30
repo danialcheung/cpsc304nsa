@@ -3,6 +3,7 @@ package cpsc304nsa.tables;
 import java.util.Arrays;
 import java.util.List;
 
+import cpsc304nsa.main.AttrType;
 import cpsc304nsa.main.Pair;
 
 public class Device implements Table {
@@ -56,8 +57,10 @@ public class Device implements Table {
                 + model + ", devType=" + devType + "]";
     }
 	@Override
-	public List<String> getAttrs() {
-		return Arrays.asList("device_id", "owner", "model", "lat", "lng", "device_type");
+	public List<Pair<AttrType, String>> getAttrs() {
+		return Arrays.asList(new Pair(AttrType.INT,"device_id"), new Pair(AttrType.STRING,"owner"), 
+				new Pair(AttrType.STRING,"model"), new Pair(AttrType.FLOAT,"lat"), 
+				new Pair(AttrType.FLOAT,"lng"), new Pair(AttrType.STRING,"device_type"));
 	}
 	@Override
 	public String getName() {

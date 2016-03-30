@@ -39,6 +39,10 @@ public class Query {
 			case 7: table = new Text(); break;
 			case 8: table = new Transaction(); break;
 			case 9: table = new User(); break;
+			default: 
+				System.out.println("invalid input");
+				table = selectTable();
+				break;
 			}
 			
         } catch (NumberFormatException nfe) {
@@ -55,7 +59,7 @@ public class Query {
 		System.out.println("select an attribute:");
 		int i;
 		for (i = 0; i < t.getAttrs().size(); i++) {
-			System.out.println("\t" + (i + 1) + ". " + t.getAttrs().get(i));
+			System.out.println("\t" + (i + 1) + ". " + t.getAttrs().get(i).getRight());
 		}
 		System.out.println("\t" + (i + 1) + ". done");
 		
@@ -68,7 +72,7 @@ public class Query {
 				System.out.println("invalid input");
 				result = selectAttr(t);
 			} else {
-			result = t.getAttrs().get(input - 1);
+			result = t.getAttrs().get(input - 1).getRight();
 			}
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();

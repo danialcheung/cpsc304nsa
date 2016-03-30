@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Stack;
 
+import cpsc304nsa.main.AttrType;
 import cpsc304nsa.main.Pair;
 import cpsc304nsa.tables.Device;
 import cpsc304nsa.tables.Table;
@@ -38,7 +39,7 @@ public class Selection extends Query {
 		
 		String query = buildQuery();
 		System.out.println("query: " + query);
-		runQuery(query);
+		runQuery(query, table.getAttrs());
     
 	}
 	
@@ -60,7 +61,7 @@ public class Selection extends Query {
 		
 	}
 
-	private void runQuery(String query)  {      
+	private void runQuery(String query, List<Pair<AttrType, String>> attrs)  {      
         ResultSet rs = null;
         Statement statement = null; 
          
@@ -68,9 +69,33 @@ public class Selection extends Query {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	
-            	System.out.println(rs.getInt("device_id") + ", " + rs.getString("owner") +", " +        	
-            			rs.getString("model") + ", " + rs.getString("device_type"));
+            	for (int i = 0; i < attrs.size(); i++) {
+            		Pair<AttrType, String> attr = attrs.get(i);
+            		switch (attr.getLeft()) {
+            		case INT: 
+            			System.out.print(attr.getRight() + ": " + rs.getInt(attr.getRight()));
+            			break;
+            		case BOOL:
+	        			System.out.print(attr.getRight() + ": " + rs.getBoolean(attr.getRight()));
+	        			break;
+            		case FLOAT: 
+	        			System.out.print(attr.getRight() + ": " + rs.getFloat(attr.getRight()));
+	        			break;
+            		case STRING: 
+	        			System.out.print(attr.getRight() + ": " + rs.getString(attr.getRight()));
+	        			break;
+            		case DATETIME: 
+	        			System.out.print(attr.getRight() + ": " + rs.getDate(attr.getRight()));
+	        			break;
+            		default:
+	        			System.out.println("something went wrong");
+            			break;
+            		}
+            		if (i + 1 < attrs.size()) {
+            			System.out.print(", ");
+            		}
+            	}
+        		System.out.println("");
             }
         } catch (SQLException e) {
             e.printStackTrace();
