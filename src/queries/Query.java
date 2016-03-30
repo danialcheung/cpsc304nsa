@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 
 import cpsc304nsa.tables.*;
 import cpsc304nsa.main.AttrType;
@@ -122,5 +126,46 @@ public class Query {
 		
 		return result;
 	}
+	
+	protected void runQuery(String query, List<Pair<AttrType, String>> attrs)  {      
+        ResultSet rs = null;
+        Statement statement = null; 
+         
+        try {           
+            statement = con.createStatement();
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+            	for (int i = 0; i < attrs.size(); i++) {
+            		Pair<AttrType, String> attr = attrs.get(i);
+            		switch (attr.getLeft()) {
+            		case INT: 
+            			System.out.print(attr.getRight() + ": " + rs.getInt(attr.getRight()));
+            			break;
+            		case BOOL:
+	        			System.out.print(attr.getRight() + ": " + rs.getBoolean(attr.getRight()));
+	        			break;
+            		case FLOAT: 
+	        			System.out.print(attr.getRight() + ": " + rs.getFloat(attr.getRight()));
+	        			break;
+            		case STRING: 
+	        			System.out.print(attr.getRight() + ": " + rs.getString(attr.getRight()));
+	        			break;
+            		case DATETIME: 
+	        			System.out.print(attr.getRight() + ": " + rs.getDate(attr.getRight()));
+	        			break;
+            		default:
+	        			System.out.println("something went wrong");
+            			break;
+            		}
+            		if (i + 1 < attrs.size()) {
+            			System.out.print(", ");
+            		}
+            	}
+        		System.out.println("");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
