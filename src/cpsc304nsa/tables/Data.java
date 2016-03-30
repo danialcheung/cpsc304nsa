@@ -1,8 +1,13 @@
 package cpsc304nsa.tables;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 
-public class Data {
+import cpsc304nsa.main.AttrType;
+import cpsc304nsa.main.Pair;
+
+public class Data implements Table{
 
 	private int dataId;
 	private Timestamp date;
@@ -46,5 +51,18 @@ public class Data {
 	}
 	public void setDevId(int devId) {
 		this.devId = devId;
+	}
+	@Override
+	public List<Pair<AttrType, String>> getAttrs() {
+		return Arrays.asList(new Pair(AttrType.INT, "data_id"),
+				new Pair(AttrType.DATETIME, "date"),
+				new Pair(AttrType.BOOL, "suspicious"),
+				new Pair(AttrType.FLOAT, "lat"),
+				new Pair(AttrType.FLOAT, "lng"),
+				new Pair(AttrType.INT, "device_id"));
+	}
+	@Override
+	public String getName() {
+		return "data";
 	}
 }

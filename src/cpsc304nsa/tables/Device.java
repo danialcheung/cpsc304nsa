@@ -58,9 +58,12 @@ public class Device implements Table {
     }
 	@Override
 	public List<Pair<AttrType, String>> getAttrs() {
-		return Arrays.asList(new Pair(AttrType.INT,"device_id"), new Pair(AttrType.STRING,"owner"), 
-				new Pair(AttrType.STRING,"model"), new Pair(AttrType.FLOAT,"lat"), 
-				new Pair(AttrType.FLOAT,"lng"), new Pair(AttrType.STRING,"device_type"));
+		return Arrays.asList(new Pair(AttrType.INT,"device_id"), 
+				new Pair(AttrType.STRING,"owner"), 
+				new Pair(AttrType.STRING,"model"), 
+				new Pair(AttrType.FLOAT,"lat"), 
+				new Pair(AttrType.FLOAT,"lng"), 
+				new Pair(AttrType.STRING,"device_type"));
 	}
 	@Override
 	public String getName() {
