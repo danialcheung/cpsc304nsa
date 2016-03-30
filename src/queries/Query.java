@@ -103,7 +103,7 @@ public class Query {
 			result = attr.getRight() + "=" + val;
 			break;
 		case BOOL:
-			result = attr.getRight() + "=" + (val.equals("true") ? "0" : val);
+			result = attr.getRight() + " IS " + val;
 			break;
 		case FLOAT: 
 			result = "CAST(" + attr.getRight() + " AS DECIMAL) = CAST(" + val + " AS DECIMAL)";
