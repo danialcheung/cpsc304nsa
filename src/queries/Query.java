@@ -61,7 +61,7 @@ public class Query {
 		
 		try {
 			int input = Integer.parseInt(br.readLine());
-			if (input == i) {
+			if (input == (i + 1)) {
 				return result;
 			} else if (input > t.getAttrs().size() ||
 				input <= 0) {

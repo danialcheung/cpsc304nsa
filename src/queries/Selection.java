@@ -30,12 +30,14 @@ public class Selection extends Query {
 		do {
 			// There is nothing here to protect duplicate attrs
 			attr = selectAttr(table);
-			val = enterVal();
+			if (attr == "") { break; }
+			val = enterInput();
+			if (val == "") { break; }
 			attrVals.push(new Pair(attr,val));
 		} while (attr != "" && val != "");
-		attrVals.pop();
 		
 		String query = buildQuery();
+		System.out.println("query: " + query);
 		runQuery(query);
     
 	}
@@ -57,13 +59,6 @@ public class Selection extends Query {
         return query;
 		
 	}
-
-	
-	private String enterVal() {
-		
-		return "";
-	}
-	
 
 	private void runQuery(String query)  {      
         ResultSet rs = null;
