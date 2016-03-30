@@ -33,7 +33,7 @@ public class Call extends CommLog implements Table{
 	}
 	@Override
 	public String getName() {
-		return "call";
+		return "`call`";
 	}
 
 }
