@@ -1,14 +1,14 @@
-DROP TABLE Location;
-DROP TABLE Device;
-DROP TABLE Data;
-DROP TABLE CommLog;
-DROP TABLE `Call`;
-DROP TABLE Text;
-DROP TABLE Photo;
-DROP TABLE Transaction;
-DROP TABLE User;
-DROP TABLE CIA;
-DROP TABLE Police;
+drop table police;
+drop table CIA;
+drop table User;
+drop table Transaction;
+drop table Photo;
+drop table Text;
+drop table `Call`;
+drop table CommLog;
+drop table Data;
+drop table Device;
+drop table Location;
 
 CREATE TABLE Location(
   lat FLOAT NOT NULL,
@@ -36,8 +36,8 @@ CREATE TABLE Data (
   lng        FLOAT    NULL,
   device_id  INT      NOT NULL,
   PRIMARY KEY (data_id),
-  FOREIGN KEY (lat, lng) REFERENCES Location(lat, lng) ON DELETE SET NULL ON UPDATE CASCADE,
-  FOREIGN KEY (device_id) REFERENCES Device (device_id) ON DELETE SET NULL ON UPDATE CASCADE
+  FOREIGN KEY (lat, lng) REFERENCES Location(lat, lng),
+  FOREIGN KEY (device_id) REFERENCES Device (device_id)
 );
 
 CREATE TABLE CommLog(

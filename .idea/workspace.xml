@@ -2,24 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91cb5265-283d-4cf2-894f-e94dd21beb01" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cpsc304nsa.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/main/Employee.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/main/Employee.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/main/Main$1.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/main/Main$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/main/Main.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/main/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/CIA.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/CIA.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Call.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Call.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/CommLog.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/CommLog.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Data.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Data.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Device.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Device.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Location.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Location.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Photo.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Photo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Police.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Police.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Text.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Text.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Transaction.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/Transaction.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/cpsc304nsa/tables/User.class" afterPath="$PROJECT_DIR$/bin/cpsc304nsa/tables/User.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tables.sql" afterPath="$PROJECT_DIR$/Tables.sql" />
     </list>
     <ignored path="cpsc304nsa.iws" />
@@ -68,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tables.sql" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Tables.sql" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Tables.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="91" selection-start-line="27" selection-start-column="91" selection-end-line="27" selection-end-column="91" />
+            <state vertical-scroll-proportion="0.26184538">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -88,10 +70,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommLog.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CommLog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cpsc304nsa/tables/CommLog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4488778">
+            <state vertical-scroll-proportion="0.0">
               <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
               <folding>
                 <element signature="e#310#311#0" expanded="true" />
@@ -696,12 +678,12 @@
       <created>1459299042670</created>
       <option name="number" value="Default" />
       <updated>1459299042670</updated>
-      <workItem from="1459299047016" duration="3000000" />
+      <workItem from="1459299047016" duration="3593000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3000000" />
+    <option name="totallyTimeSpent" value="3593000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1280" height="731" extended-state="6" />
@@ -794,14 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tables.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="91" selection-start-line="27" selection-start-column="91" selection-end-line="27" selection-end-column="91" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cpsc304nsa/tables/Device.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -812,12 +786,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cpsc304nsa/tables/CommLog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4488778">
+        <state vertical-scroll-proportion="0.0">
           <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
           <folding>
             <element signature="e#310#311#0" expanded="true" />
             <element signature="e#341#342#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tables.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26184538">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
