@@ -1,6 +1,11 @@
 package cpsc304nsa.tables;
 
-public class Device {
+import java.util.Arrays;
+import java.util.List;
+
+import cpsc304nsa.main.Pair;
+
+public class Device implements Table {
      
     private int devId;
     private String owner;
@@ -49,5 +54,13 @@ public class Device {
     public String toString() {
         return "Device [devId=" + devId + ", owner=" + owner + ", model="
                 + model + ", devType=" + devType + "]";
-    }       
+    }
+	@Override
+	public List<String> getAttrs() {
+		return Arrays.asList("devId", "owner", "model", "lat", "lng", "devType");
+	}
+	@Override
+	public String getName() {
+		return "device";
+	}       
 }
