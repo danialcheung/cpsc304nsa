@@ -149,10 +149,21 @@ INSERT INTO User (user_id) VALUES (12380);
 INSERT INTO User (user_id) VALUES (88122);
 INSERT INTO User (user_id) VALUES (92932);
 INSERT INTO User (user_id) VALUES (34212);
+INSERT INTO User (user_id) VALUES (54325);
+INSERT INTO User (user_id) VALUES (85677);
+INSERT INTO User (user_id) VALUES (54326);
+INSERT INTO User (user_id) VALUES (88435);
+INSERT INTO User (user_id) VALUES (54634);
 
 INSERT INTO CIA (user_id, country) VALUES (43210, 'China');
 INSERT INTO CIA (user_id, country) VALUES (12380, 'Russia');
+INSERT INTO CIA (user_id, country) VALUES (34212, 'India');
+INSERT INTO CIA (user_id, country) VALUES (54325, 'Tibet');
+INSERT INTO CIA (user_id, country) VALUES (85677, 'Australia');
 
 INSERT INTO Police (user_id, state) VALUES (88122, 'TX');
 INSERT INTO Police (user_id, state) VALUES (92932, 'NA');
+INSERT INTO Police (user_id, state) VALUES (54326, 'WA');
+INSERT INTO Police (user_id, state) VALUES (88435, 'CA');
+INSERT INTO Police (user_id, state) VALUES (54634, 'OH');
 
