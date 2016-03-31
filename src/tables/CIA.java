@@ -1,6 +1,6 @@
-package cpsc304nsa.tables;
+package tables;
 
-public class CIA extends User {
+public class CIA extends User implements Table {
 
 	private String country;
 

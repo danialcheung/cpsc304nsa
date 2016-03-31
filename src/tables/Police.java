@@ -1,6 +1,6 @@
-package cpsc304nsa.tables;
+package tables;
 
-public class Police extends User {
+public class Police extends User implements Table {
 
 	private String state;
 

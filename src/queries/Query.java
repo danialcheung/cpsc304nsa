@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import cpsc304nsa.tables.*;
-import cpsc304nsa.main.AttrType;
-import cpsc304nsa.main.Pair;;
+import tables.*;
+import main.AttrType;
+import main.Pair;;
 
 public class Query {
 	private BufferedReader br;
@@ -59,10 +59,10 @@ public class Query {
 		return table;
 	}
 
-	protected Pair<AttrType, String> selectAttr(Table t) {
+	protected Pair<AttrType, String> selectAttr(Table t, String msg) {
 		Pair<AttrType, String> result = null;
 		
-		System.out.println("select an attribute:");
+		System.out.println(msg);
 		int i;
 		for (i = 0; i < t.getAttrs().size(); i++) {
 			System.out.println("\t" + (i + 1) + ". " + t.getAttrs().get(i).getRight());
@@ -76,7 +76,7 @@ public class Query {
 			} else if (input > t.getAttrs().size() ||
 				input <= 0) {
 				System.out.println("invalid input");
-				result = selectAttr(t);
+				result = selectAttr(t, msg);
 			} else {
 			result = t.getAttrs().get(input - 1);
 			}
@@ -99,6 +99,23 @@ public class Query {
         }
 		return result;
 	}
+	
+	protected int selectGeneric(String msg, List<String> options) {
+		System.out.println(msg);
+		for (int i = 0; i < options.size(); i++) {
+			System.out.println((i+1) + ". " + options.get(i));
+		}
+		int input = -1;
+		try {
+			input = Integer.parseInt(br.readLine());
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+		return input;
+	}
+
 	
 	protected String attrEqualsValString(Pair<AttrType, String> attr, String val) {
 		String result = "";
@@ -130,7 +147,8 @@ public class Query {
 	protected void runQuery(String query, List<Pair<AttrType, String>> attrs)  {      
         ResultSet rs = null;
         Statement statement = null; 
-         
+		System.out.println("query: " + query);
+
         try {           
             statement = con.createStatement();
             rs = statement.executeQuery(query);

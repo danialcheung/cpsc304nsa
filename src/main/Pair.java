@@ -1,4 +1,4 @@
-package cpsc304nsa.main;
+package main;
 
 public class Pair<L,R> {
 

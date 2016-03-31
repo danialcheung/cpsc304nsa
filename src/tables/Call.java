@@ -1,11 +1,11 @@
-package cpsc304nsa.tables;
+package tables;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
-import cpsc304nsa.main.AttrType;
-import cpsc304nsa.main.Pair;
+import main.AttrType;
+import main.Pair;
 
 public class Call extends CommLog implements Table{
 
@@ -27,9 +27,9 @@ public class Call extends CommLog implements Table{
 	
 	@Override
 	public List<Pair<AttrType, String>> getAttrs() {
-		return Arrays.asList(new Pair(AttrType.INT, "data_id"),
-				new Pair(AttrType.DATETIME, "beginning"),
-				new Pair(AttrType.DATETIME, "end"));
+		return Arrays.asList(new Pair<AttrType, String>(AttrType.INT, "data_id"),
+				new Pair<AttrType, String>(AttrType.DATETIME, "beginning"),
+				new Pair<AttrType, String>(AttrType.DATETIME, "end"));
 	}
 	@Override
 	public String getName() {

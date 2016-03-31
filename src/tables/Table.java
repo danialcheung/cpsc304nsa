@@ -1,9 +1,9 @@
-package cpsc304nsa.tables;
+package tables;
 
 import java.util.List;
 
-import cpsc304nsa.main.AttrType;
-import cpsc304nsa.main.Pair;
+import main.AttrType;
+import main.Pair;
 
 public interface Table {
 	public List<Pair<AttrType,String>> getAttrs();

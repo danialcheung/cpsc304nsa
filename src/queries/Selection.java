@@ -8,10 +8,10 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Stack;
 
-import cpsc304nsa.main.AttrType;
-import cpsc304nsa.main.Pair;
-import cpsc304nsa.tables.Device;
-import cpsc304nsa.tables.Table;
+import main.AttrType;
+import main.Pair;
+import tables.Device;
+import tables.Table;
 
 public class Selection extends Query {
 	
@@ -29,7 +29,7 @@ public class Selection extends Query {
 		String val;
 		
 		do {
-			attr = selectAttr(table);
+			attr = selectAttr(table, "select an attribute:");
 			if (attr == null) { break; }
 			val = enterInput();
 			if (val == "") { break; }
@@ -37,7 +37,6 @@ public class Selection extends Query {
 		} while (attr != null && val != "");
 		
 		String query = buildQuery();
-		System.out.println("query: " + query);
 		runQuery(query, table.getAttrs());
     
 	}

@@ -1,4 +1,4 @@
-package cpsc304nsa.main;
+package main;
 
 //We need to import the java.sql package to use JDBC
 import java.sql.*;  
@@ -21,7 +21,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 //for accessing tables in database
-import cpsc304nsa.tables.Device;
+import tables.Device;
 
 /*
  * This class implements a graphical login window and a simple text
