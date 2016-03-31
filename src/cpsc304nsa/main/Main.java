@@ -7,6 +7,16 @@ import java.io.*;
 
 //for the login window
 import javax.swing.*;
+
+import queries.Aggregation;
+import queries.Deletion;
+import queries.Division;
+import queries.Join;
+import queries.NestedAggregationWithGroupBy;
+import queries.Projection;
+import queries.Selection;
+import queries.Update;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -163,7 +173,7 @@ public class Main implements ActionListener
 			// if the username and password are valid, 
 			// remove the login window and display a text menu 
 			mainFrame.dispose();
-			//showMenu();    
+			showMenu();    
 			
 			// for sample program for testing:
 //			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -180,19 +190,19 @@ public class Main implements ActionListener
 //	            ioe.printStackTrace();
 //	        } 
 			
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	        System.out.println("Enter the DeviceID:");
-	         
-	        int deviceId;
-	        try {
-	            deviceId = Integer.parseInt(br.readLine());
-	            Device device = getDevice(deviceId);
-	            System.out.println(device);           
-	        } catch (NumberFormatException nfe) {
-	            nfe.printStackTrace();
-	        } catch (IOException ioe) {
-	            ioe.printStackTrace();
-	        }
+//			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//	        System.out.println("Enter the DeviceID:");
+//	         
+//	        int deviceId;
+//	        try {
+//	            deviceId = Integer.parseInt(br.readLine());
+//	            Device device = getDevice(deviceId);
+//	            System.out.println(device);           
+//	        } catch (NumberFormatException nfe) {
+//	            nfe.printStackTrace();
+//	        } catch (IOException ioe) {
+//	            ioe.printStackTrace();
+//	        }
 		}
 		else
 		{
@@ -211,35 +221,35 @@ public class Main implements ActionListener
 		}             
 	}
 
-    public Device getDevice(int deviceId)  {      
-        ResultSet rs = null;
-        Statement statement = null; 
-         
-        Device device = null;
-        String query = "SELECT * FROM device WHERE device_id=" + deviceId;
-        try {           
-            statement = con.createStatement();
-            rs = statement.executeQuery(query);
-            if (rs.next()) {
-            	device = new Device();
-            	device.setDevId(rs.getInt("device_id"));
-            	device.setOwner(rs.getString("owner"));
-            	device.setModel(rs.getString("model"));
-            	device.setDevType(rs.getString("device_type"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return device;
-    }
+//    public Device getDevice(int deviceId)  {      
+//        ResultSet rs = null;
+//        Statement statement = null; 
+//         
+//        Device device = null;
+//        String query = "SELECT * FROM device WHERE device_id=" + deviceId;
+//        try {           
+//            statement = con.createStatement();
+//            rs = statement.executeQuery(query);
+//            if (rs.next()) {
+//            	device = new Device();
+//            	device.setDevId(rs.getInt("device_id"));
+//            	device.setOwner(rs.getString("owner"));
+//            	device.setModel(rs.getString("model"));
+//            	device.setDevType(rs.getString("device_type"));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (con != null) {
+//                try {
+//                    con.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return device;
+//    }
     
 //	/*
 //	 * sample query for testing
@@ -275,70 +285,102 @@ public class Main implements ActionListener
 //        return employee;
 //    }
     
-//	/*
-//	 * displays simple text interface
-//	 */ 
-//	private void showMenu()
-//	{
-//		int choice;
-//		boolean quit;
-//
-//		quit = false;
-//
-//		try 
-//		{
-//			// disable auto commit mode
-//			con.setAutoCommit(false);
-//
-//			while (!quit)
-//			{
-//				System.out.print("\n\nPlease choose one of the following: \n");
-//				System.out.print("1.  Insert branch\n");
-//				System.out.print("2.  Delete branch\n");
-//				System.out.print("3.  Update branch\n");
-//				System.out.print("4.  Show branch\n");
-//				System.out.print("5.  Quit\n>> ");
-//
-//				choice = Integer.parseInt(in.readLine());
-//
-//				System.out.println(" ");
-//
-//				switch(choice)
-//				{
-//				case 1:  insertBranch(); break;
-//				case 2:  deleteBranch(); break;
-//				case 3:  updateBranch(); break;
-//				case 4:  showBranch(); break;
-//				case 5:  quit = true;
-//				}
-//			}
-//
-//			con.close();
-//			in.close();
-//			System.out.println("\nGood Bye!\n\n");
-//			System.exit(0);
-//		}
-//		catch (IOException e)
-//		{
-//			System.out.println("IOException!");
-//
-//			try
-//			{
-//				con.close();
-//				System.exit(-1);
-//			}
-//			catch (SQLException ex)
-//			{
-//				System.out.println("Message: " + ex.getMessage());
-//			}
-//		}
-//		catch (SQLException ex)
-//		{
-//			System.out.println("Message: " + ex.getMessage());
-//		}
-//	}
-//
-//
+	/*
+	 * displays simple text interface
+	 */ 
+	private void showMenu()
+	{
+		int choice;
+		boolean quit;
+
+		quit = false;
+
+		try 
+		{
+			// disable auto commit mode
+			con.setAutoCommit(false);
+
+			while (!quit)
+			{
+				System.out.print("\n\nPlease choose one of the following queries: \n");
+				System.out.print("1.  Selection\n");
+				System.out.print("2.  Projection\n");
+				System.out.print("3.  Join\n");
+				System.out.print("4.  Division\n");
+				System.out.print("5.  Aggregation\n");
+				System.out.print("6.  Nested aggregation with group-by\n");
+				System.out.print("7.  Delete\n");
+				System.out.print("8.  Update\n");
+				System.out.print("9.  Quit\n>> ");
+
+				choice = Integer.parseInt(in.readLine());
+
+				System.out.println(" ");
+
+				switch(choice)
+				{
+				case 1:  
+					Selection selectObj = new Selection(con);
+					selectObj.select(); 
+					break;
+				case 2: 
+					Projection projectObj = new Projection(con);
+					projectObj.project(); 
+					break;
+				case 3:  
+					Join joinObj = new Join(con);
+					joinObj.join(); 
+					break;
+				case 4:  
+					Division divideObj = new Division(con);
+					divideObj.divide(); 
+					break;
+				case 5:  
+					Aggregation aggregateObj = new Aggregation(con);
+					aggregateObj.aggregate(); 
+					break;
+				case 6:  
+					NestedAggregationWithGroupBy nestedAggregateObj = new NestedAggregationWithGroupBy(con);
+					nestedAggregateObj.nestedAggregateWithGroupBy(); 
+					break;
+				case 7:  
+					Deletion deleteObj = new Deletion(con);
+					deleteObj.delete(); 
+					break;
+				case 8:  
+					Update updateObj = new Update(con);
+					updateObj.update(); 
+					break;
+				case 9:  quit = true;
+				}
+			}
+
+			con.close();
+			in.close();
+			System.out.println("\nGood Bye!\n\n");
+			System.exit(0);
+		}
+		catch (IOException e)
+		{
+			System.out.println("IOException!");
+
+			try
+			{
+				con.close();
+				System.exit(-1);
+			}
+			catch (SQLException ex)
+			{
+				System.out.println("Message: " + ex.getMessage());
+			}
+		}
+		catch (SQLException ex)
+		{
+			System.out.println("Message: " + ex.getMessage());
+		}
+	}
+
+
 //	/*
 //	 * inserts a branch
 //	 */ 
