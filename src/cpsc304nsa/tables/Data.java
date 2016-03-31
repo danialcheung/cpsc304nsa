@@ -52,15 +52,15 @@ public class Data implements Table{
 	public void setDevId(int devId) {
 		this.devId = devId;
 	}
-//	@Override
-//	public List<Pair<AttrType, String>> getAttrs() {
-//		return Arrays.asList(new Pair(AttrType.INT, "data_id"),
-//				new Pair(AttrType.DATETIME, "date"),
-//				new Pair(AttrType.BOOL, "suspicious"),
-//				new Pair(AttrType.FLOAT, "lat"),
-//				new Pair(AttrType.FLOAT, "lng"),
-//				new Pair(AttrType.INT, "device_id"));
-//	}
+	@Override
+	public List<Pair<AttrType, String>> getAttrs() {
+		return Arrays.asList(new Pair(AttrType.INT, "data_id"),
+				new Pair(AttrType.DATETIME, "date"),
+				new Pair(AttrType.BOOL, "suspicious"),
+				new Pair(AttrType.FLOAT, "lat"),
+				new Pair(AttrType.FLOAT, "lng"),
+				new Pair(AttrType.INT, "device_id"));
+	}
 	@Override
 	public String getName() {
 		return "data";
