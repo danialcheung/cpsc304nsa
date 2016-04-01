@@ -2,16 +2,21 @@ package queries;
 
 import java.sql.Connection;
 
+import main.AttrType;
+import main.Pair;
+import tables.Table;
+
 public class Deletion extends Query {
 
 	public Deletion(Connection con) {
 		super(con);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void delete() {
-		// TODO Auto-generated method stub
+		Table table = selectTable();
+		String attr = table.primaryKey();
 		
+		String val = enterInput("enter primary key of entry to delete");
 	}
 
 }

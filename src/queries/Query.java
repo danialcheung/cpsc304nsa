@@ -96,8 +96,12 @@ public class Query {
 	}
 	
 	protected String enterInput() {
+		return enterInput("enter value:");
+	}
+
+	protected String enterInput(String msg) {
 		String result = "";
-		System.out.println("enter value:");
+		System.out.println(msg);
 		
 		try {
 			result = br.readLine();
