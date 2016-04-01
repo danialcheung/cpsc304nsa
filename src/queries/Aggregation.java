@@ -30,7 +30,7 @@ public class Aggregation extends Query {
 			System.out.println("invalid input");
 		}
 
-		Pair<AttrType, String> aggrAttr = selectAttr(table, "select attribute to aggregate by:");
+		Pair<AttrType, String> aggrAttr = selectAttr(table.getAttrs(), "select attribute to aggregate by:");
 
 //		runQuery( table.getName() + aggrType + aggrAttr.getRight() , Arrays.asList());
 	}

@@ -29,7 +29,7 @@ public class Selection extends Query {
 		String val;
 		
 		do {
-			attr = selectAttr(table, "select an attribute:");
+			attr = selectAttr(table.getAttrs(), "select an attribute:");
 			if (attr == null) { break; }
 			val = enterInput();
 			if (val == "") { break; }

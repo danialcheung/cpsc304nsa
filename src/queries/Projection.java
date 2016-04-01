@@ -20,10 +20,10 @@ public class Projection extends Query {
 
 	public void project() {
 		table = selectTable();
-		Pair<AttrType, String> attr = selectAttr(table, "select an attribute:");
+		Pair<AttrType, String> attr = selectAttr(table.getAttrs(), "select an attribute:");
 		while (attr != null) {
 			attrs.add(attr);
-			attr = selectAttr(table, "select another attribute:");
+			attr = selectAttr(table.getAttrs(), "select another attribute:");
 		}
 		
 		runQuery("SELECT * FROM " + table.getName() + ";", attrs);

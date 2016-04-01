@@ -22,8 +22,11 @@ public class Query {
 	}
 
 	protected Table selectTable() {
+		return selectTable("select a table:\n");
+	}
+	protected Table selectTable(String msg) {
 		Table table = null;
-		System.out.println("select a table:\n"
+		System.out.println(msg
 				+ "\t1. Call\n"
 				+ "\t2. CommLog\n"
 				+ "\t3. Data\n"
@@ -59,13 +62,13 @@ public class Query {
 		return table;
 	}
 
-	protected Pair<AttrType, String> selectAttr(Table t, String msg) {
+	protected Pair<AttrType, String> selectAttr(List<Pair<AttrType,String>> attrs, String msg) {
 		Pair<AttrType, String> result = null;
 		
 		System.out.println(msg);
 		int i;
-		for (i = 0; i < t.getAttrs().size(); i++) {
-			System.out.println("\t" + (i + 1) + ". " + t.getAttrs().get(i).getRight());
+		for (i = 0; i < attrs.size(); i++) {
+			System.out.println("\t" + (i + 1) + ". " + attrs.get(i).getRight());
 		}
 		System.out.println("\t" + (i + 1) + ". done");
 		
@@ -73,12 +76,12 @@ public class Query {
 			int input = Integer.parseInt(br.readLine());
 			if (input == (i + 1)) {
 				return null;
-			} else if (input > t.getAttrs().size() ||
+			} else if (input > attrs.size() ||
 				input <= 0) {
 				System.out.println("invalid input");
-				result = selectAttr(t, msg);
+				result = selectAttr(attrs, msg);
 			} else {
-			result = t.getAttrs().get(input - 1);
+			result = attrs.get(input - 1);
 			}
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();

@@ -19,8 +19,8 @@ public class NestedAggregationWithGroupBy extends Query {
 	public void nestedAggregateWithGroupBy() {
 		Table table = selectTable();
 
-		Pair<AttrType, String> groupAttr = selectAttr(table, "select attribute to group by:");
-		Pair<AttrType, String> avgAttr = selectAttr(table, "select attribute to average:");
+		Pair<AttrType, String> groupAttr = selectAttr(table.getAttrs(), "select attribute to group by:");
+		Pair<AttrType, String> avgAttr = selectAttr(table.getAttrs(), "select attribute to average:");
 
 		if (avgAttr.getLeft() == AttrType.STRING) {
 			System.out.println("cannot average string data, query failed");
