@@ -9,14 +9,15 @@ import tables.Table;
 
 public class Aggregation extends Query {
 	
-	private Table table;
 	
 	public Aggregation(Connection con) {
 		super(con);
+		// (1 point) Aggregation query: pick one query that requires the use of aggregation (min, max, average, or count are all fine).
+
 	}
 	
 	public void aggregate() {
-		table = selectTable();
+		Table table = selectTable();
 		
 		int aggrTypeInt = selectGeneric("select type of aggregation:", Arrays.asList("average", "count", "min", "max"));
 		String aggrType = "";

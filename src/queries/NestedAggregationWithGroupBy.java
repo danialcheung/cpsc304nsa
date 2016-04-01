@@ -9,15 +9,16 @@ import tables.Table;
 
 public class NestedAggregationWithGroupBy extends Query {
 	
-	private Table table;
 	
 	public NestedAggregationWithGroupBy(Connection con) {
 		super(con);
 		// TODO Auto-generated constructor stub
+		// (2 points) Nested aggregation with group-by: pick one query that finds the average for each group and then finds either the minimum or maximum across all those averages. Provide an interface for the user to specify whether the minimum or maximum is requested.
+
 	}
 
 	public void nestedAggregateWithGroupBy() {
-		table = selectTable();
+		Table table = selectTable();
 
 		Pair<AttrType, String> groupAttr = selectAttr(table, "select attribute to group by:");
 		Pair<AttrType, String> avgAttr = selectAttr(table, "select attribute to average by:");
