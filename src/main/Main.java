@@ -351,7 +351,13 @@ public class Main implements ActionListener
 					Update updateObj = new Update(con);
 					updateObj.update(); 
 					break;
-				case 9:  quit = true;
+				case 9:  
+				default:	quit = true;
+				}
+				
+				if (!quit) {
+					System.out.println("\nQuery complete; hit enter to continue.");
+					in.readLine();
 				}
 			}
 
