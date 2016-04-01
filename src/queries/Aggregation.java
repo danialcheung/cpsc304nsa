@@ -31,8 +31,9 @@ public class Aggregation extends Query {
 		}
 
 		Pair<AttrType, String> aggrAttr = selectAttr(table.getAttrs(), "select attribute to aggregate by:");
-
-//		runQuery( table.getName() + aggrType + aggrAttr.getRight() , Arrays.asList());
+		
+		String query = "SELECT " + aggrType + "(" + aggrAttr.getRight() + ") FROM " + table.getName() + ";";
+		runQuery(query, Arrays.asList(new Pair<AttrType, String>(aggrAttr.getLeft(), aggrType + "(" + aggrAttr.getRight() + ")")));
 	}
 
 }
