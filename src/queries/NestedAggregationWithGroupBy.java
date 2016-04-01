@@ -37,8 +37,8 @@ public class NestedAggregationWithGroupBy extends Query {
 		}
 		
 		// TODO use aggrType
-		String query = "SELECT AVG(" + avgAttr.getRight() + ") FROM " + table.getName() + " GROUP BY " + groupAttr.getRight() + ";";
-		runQuery(query, Arrays.asList(new Pair<AttrType, String>(avgAttr.getLeft(), "AVG(" + avgAttr.getRight() + ")")));
+		String query = "SELECT " + groupAttr.getRight() + ", " + "AVG(" + avgAttr.getRight() + ") FROM " + table.getName() + " GROUP BY " + groupAttr.getRight() + ";";
+		runQuery(query, Arrays.asList(groupAttr, new Pair<AttrType, String>(avgAttr.getLeft(), "AVG(" + avgAttr.getRight() + ")")));
 	}
 
 }
