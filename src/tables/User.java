@@ -27,4 +27,9 @@ public class User implements Table {
 	public String getName() {
 		return "user";
 	}
+
+	@Override
+	public String primaryKey() {
+		return "user_id";
+	}
 }

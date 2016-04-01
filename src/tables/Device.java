@@ -68,5 +68,9 @@ public class Device implements Table {
 	@Override
 	public String getName() {
 		return "device";
+	}
+	@Override
+	public String primaryKey() {
+		return "device_id";
 	}       
 }

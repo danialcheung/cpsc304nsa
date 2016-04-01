@@ -65,4 +65,8 @@ public class Data implements Table{
 	public String getName() {
 		return "data";
 	}
+	@Override
+	public String primaryKey() {
+		return "data_id";
+	}
 }

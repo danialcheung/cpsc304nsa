@@ -39,5 +39,9 @@ public class Location implements Table {
 	@Override
 	public String getName() {
 		return "location";
+	}
+	@Override
+	public String primaryKey() {
+		return "lat"; // TODO change this dumb method so that it can return multiple attrs to make up primary key 
 	}	
 }
