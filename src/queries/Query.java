@@ -61,8 +61,10 @@ public class Query {
         }
 		return table;
 	}
-
 	protected Pair<AttrType, String> selectAttr(List<Pair<AttrType,String>> attrs, String msg) {
+		return selectAttr(attrs, msg, false);
+	}
+	protected Pair<AttrType, String> selectAttr(List<Pair<AttrType,String>> attrs, String msg, Boolean notNecessary) {
 		Pair<AttrType, String> result = null;
 		
 		System.out.println(msg);
@@ -70,11 +72,13 @@ public class Query {
 		for (i = 0; i < attrs.size(); i++) {
 			System.out.println("\t" + (i + 1) + ". " + attrs.get(i).getRight());
 		}
-		System.out.println("\t" + (i + 1) + ". done");
+		if (notNecessary) {
+			System.out.println("\t" + (i + 1) + ". done");
+		}
 		
 		try {
 			int input = Integer.parseInt(br.readLine());
-			if (input == (i + 1)) {
+			if (notNecessary && input == (i + 1)) {
 				return null;
 			} else if (input > attrs.size() ||
 				input <= 0) {

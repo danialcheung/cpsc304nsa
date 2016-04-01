@@ -23,7 +23,7 @@ public class Projection extends Query {
 		Pair<AttrType, String> attr = selectAttr(table.getAttrs(), "select an attribute:");
 		while (attr != null) {
 			attrs.add(attr);
-			attr = selectAttr(table.getAttrs(), "select another attribute:");
+			attr = selectAttr(table.getAttrs(), "select another attribute:", true);
 		}
 		
 		runQuery("SELECT * FROM " + table.getName() + ";", attrs);
