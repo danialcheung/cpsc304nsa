@@ -9,7 +9,6 @@ public class Update extends Query {
 
 	public Update(Connection con) {
 		super(con);
-		markDataSuspicious(7712323);
 	}
 
 	public void update() {
