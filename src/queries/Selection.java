@@ -59,10 +59,10 @@ public class Selection extends Query {
         return query;
 	}
 	
-	public List<String> getOwnerByDeviceType(String deviceType) {
+	/* get a list of names of people who own a given device type */
+	public List<String> selectOwnerByDeviceType(String deviceType) {
 		List<String> owners = new ArrayList<String>();
 		String query = "SELECT owner FROM device WHERE device_type LIKE \"" + deviceType + "\";";
-		
 		
         ResultSet rs = null;
         Statement statement = null; 
