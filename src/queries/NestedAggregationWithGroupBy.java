@@ -1,7 +1,12 @@
 package queries;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import main.AttrType;
 import main.Pair;
@@ -11,9 +16,6 @@ public class NestedAggregationWithGroupBy extends Query {
 	
 	public NestedAggregationWithGroupBy(Connection con) {
 		super(con);
-		// TODO Auto-generated constructor stub
-		// (2 points) Nested aggregation with group-by: pick one query that finds the average for each group and then finds either the minimum or maximum across all those averages. Provide an interface for the user to specify whether the minimum or maximum is requested.
-
 	}
 
 	public void nestedAggregateWithGroupBy() {
@@ -39,6 +41,48 @@ public class NestedAggregationWithGroupBy extends Query {
 		// TODO use aggrType
 		String query = "SELECT " + groupAttr.getRight() + ", " + "AVG(" + avgAttr.getRight() + ") FROM " + table.getName() + " GROUP BY " + groupAttr.getRight() + ";";
 		runQuery(query, Arrays.asList(groupAttr, new Pair<AttrType, String>(avgAttr.getLeft(), "AVG(" + avgAttr.getRight() + ")")));
+	}
+	
+	/* get country with the min/max avg transaction amounts  */
+	public List<List<String>> countryWithMinMAxAvgTransactions(Boolean isMax) {
+		List<List<String>> table = new ArrayList<List<String>>();
+		table.add(Arrays.asList("country", (isMax ? "max_avg_amount" : "min_avg_amount")));
+
+		String query = 
+				"SELECT country, max_amount  " +
+				"FROM  " +
+				"( " +
+				"    SELECT country, avg(amount) AS max_amount  " +
+				"    FROM transaction, location, data  " +
+				"    WHERE data.lat = location.lat AND data.lng = location.lng AND data.data_id = transaction.data_id " +
+				"    GROUP BY country " +
+				"    ) AS avg " +
+				"WHERE max_amount = ( " +
+				"    SELECT  " + (isMax ? "MAX" : "MIN") + "(avg_amount)  " +
+				"    FROM ( " +
+				"        SELECT country, avg(amount) as avg_amount  " +
+				"        FROM transaction, location, data " +
+				"        WHERE data.lat = location.lat AND data.lng = location.lng AND data.data_id = transaction.data_id " +
+				"        GROUP BY country " +
+				"        ) AS max " +
+				"    );";
+		
+        ResultSet rs = null;
+        Statement statement = null; 
+        try {
+            statement = con.createStatement();
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+            	List<String> row = Arrays.asList(
+            			rs.getString("country"),
+            			String.valueOf(rs.getFloat("max_amount")));
+            	table.add(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+		return table;
 	}
 
 }
