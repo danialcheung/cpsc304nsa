@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Join extends Query {
@@ -19,10 +20,12 @@ public class Join extends Query {
 		
 	}
 	
-	/* get a list of data (data_id) associated with a given owner */
-	public List<Integer> joinOwnerWithData(String owner) {
-		List<Integer> data = new ArrayList<Integer>();
-		String query = "SELECT data_id FROM device, data WHERE device.device_id = data.device_id AND device.owner LIKE \"" + owner + "\";";
+	/* join a list of data (data_id) with its owner */
+	public List<List<String>> joinOwnerWithData(String owner) {
+		List<List<String>> table = new ArrayList<List<String>>();
+		table.add(Arrays.asList("owner", "data_id", "date", "suspicious"));
+		
+		String query = "SELECT owner, data_id, date, suspicious FROM device, data WHERE device.device_id = data.device_id;";
 		
         ResultSet rs = null;
         Statement statement = null; 
@@ -30,13 +33,17 @@ public class Join extends Query {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	data.add(rs.getInt("data_id"));
+            	table.add(Arrays.asList(
+            			rs.getString("owner"),
+            			String.valueOf(rs.getInt("data_id")),
+            			String.valueOf(rs.getDate("date")),
+            			(rs.getBoolean("suspicious")) ? "true" : "false"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-		return data;
+		return table;
 	}
 
 }
