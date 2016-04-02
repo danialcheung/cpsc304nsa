@@ -18,7 +18,7 @@ CREATE TABLE Location(
 );
 
 CREATE TABLE Device (
-  device_id INT NOT NULL ,
+  device_id INT UNSIGNED NOT NULL ,
   owner VARCHAR(20) NULL ,
   model VARCHAR(20) NULL ,
   lat FLOAT NULL ,
@@ -29,26 +29,26 @@ CREATE TABLE Device (
 );
 
 CREATE TABLE Data (
-  data_id    INT      NOT NULL,
+  data_id    INT UNSIGNED     NOT NULL,
   date       DATETIME NULL,
   suspicious BIT(1)  NOT NULL,
   lat        FLOAT    NULL,
   lng        FLOAT    NULL,
-  device_id  INT      NULL,
+  device_id  INT UNSIGNED     NULL,
   PRIMARY KEY (data_id),
   FOREIGN KEY (lat, lng) REFERENCES Location(lat, lng) ON DELETE SET NULL,
   FOREIGN KEY (device_id) REFERENCES Device (device_id) ON DELETE SET NULL
 );
 
 CREATE TABLE CommLog(
-  data_id INT NULL,
-  sender INT NULL,
-  reciever INT NULL,
+  data_id INT UNSIGNED NULL,
+  sender INT UNSIGNED NULL,
+  reciever INT UNSIGNED NULL,
   FOREIGN KEY (data_id) REFERENCES Data(data_id) ON DELETE cascade ON UPDATE CASCADE
 );
 
 CREATE TABLE `Call`(
-  data_id INT NOT NULL,
+  data_id INT UNSIGNED NOT NULL,
   beginning DATETIME NULL,
   end DATETIME NULL,
   PRIMARY KEY (data_id),
@@ -56,21 +56,21 @@ CREATE TABLE `Call`(
 );
 
 CREATE TABLE Text (
-  data_id INT NOT NULL,
+  data_id INT UNSIGNED NOT NULL,
   length INT UNSIGNED NULL,
   PRIMARY KEY (data_id),
   FOREIGN KEY (data_id) REFERENCES CommLog(data_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Photo (
-  data_id INT NOT NULL,
+  data_id INT UNSIGNED NOT NULL,
   size INT UNSIGNED NULL,
   PRIMARY KEY (data_id),
   FOREIGN KEY (data_id) REFERENCES Data(data_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Transaction (
-  data_id INT NOT NULL,
+  data_id INT UNSIGNED NOT NULL,
   amount FLOAT NULL,
   PRIMARY KEY (data_id),
   FOREIGN KEY (data_id) REFERENCES Data(data_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -78,19 +78,19 @@ CREATE TABLE Transaction (
 
 
 CREATE TABLE User(
-  user_id INT NOT NULL,
+  user_id INT UNSIGNED NOT NULL,
   PRIMARY KEY (user_id)
 );
 
 CREATE TABLE CIA(
-  user_id INT NOT NULL ,
+  user_id INT UNSIGNED NOT NULL ,
   country VARCHAR(20) NULL ,
   PRIMARY KEY (user_id),
   FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Police(
-  user_id INT NOT NULL ,
+  user_id INT UNSIGNED NOT NULL ,
   state CHAR(2) NULL ,
   PRIMARY KEY (user_id),
   FOREIGN KEY (user_id) REFERENCES User(user_id)
