@@ -19,13 +19,6 @@ public class Selection extends Query {
 		
 	public Selection(Connection con) {
 		super(con);
-		List<List<String>> xz = selectDataFromCountry("Canada");
-		for (List<String> x : xz) {
-			for (String s : x) {
-				System.out.print(s + ", ");
-			}
-			System.out.println("");
-		}
 	}
 	
 	public void select() {
@@ -92,5 +85,5 @@ public class Selection extends Query {
         }
         return table;
 	}
-	
+
 }
