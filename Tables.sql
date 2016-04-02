@@ -96,29 +96,30 @@ CREATE TABLE Police(
   FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
+
 INSERT INTO Location (lat, lng, country) VALUES (37.09024, -95.712891, 'United States');
 INSERT INTO Location (lat, lng, country) VALUES (51.165691, 10.451526, 'Germany');
 INSERT INTO Location (lat, lng, country) VALUES (56.130366, -106.346771, 'Canada');
 INSERT INTO Location (lat, lng, country) VALUES (-25.274398, 133.775136, 'Australia');
 INSERT INTO Location (lat, lng, country) VALUES (55.378051, -3.435973, 'United Kingdom');
 
-INSERT INTO Location (lat, lng, country) VALUES (10.861810, 159.784584, 'Fiji');
+INSERT INTO Location (lat, lng, country) VALUES (10.861810, 159.784584, 'Poland');
 INSERT INTO Location (lat, lng, country) VALUES (-69.067717, -174.507704, 'Germany');
 INSERT INTO Location (lat, lng, country) VALUES (-2.026138, -102.952643, 'Poland');
 INSERT INTO Location (lat, lng, country) VALUES (7.773322, 128.304261, 'Ukraine');
-INSERT INTO Location (lat, lng, country) VALUES (-24.691678, 77.188033, 'Malaysia');
+INSERT INTO Location (lat, lng, country) VALUES (-24.691678, 77.188033, 'United Kingdom');
 
-INSERT INTO Location (lat, lng, country) VALUES (58.214496, 18.949128, 'Indonesia');
-INSERT INTO Location (lat, lng, country) VALUES (-1.075264, 42.7196933, 'Japan');
-INSERT INTO Location (lat, lng, country) VALUES (5.25875225, 128.0870244, 'China');
-INSERT INTO Location (lat, lng, country) VALUES (-40.34222295, 12.81877222, 'Egypt');
-INSERT INTO Location (lat, lng, country) VALUES (9.24914798, -126.90281711, 'Iran');
+INSERT INTO Location (lat, lng, country) VALUES (58.214496, 18.949128, 'Germany');
+INSERT INTO Location (lat, lng, country) VALUES (-1.075264, 42.7196933, 'United Kingdom');
+INSERT INTO Location (lat, lng, country) VALUES (5.25875225, 128.0870244, 'Canada');
+INSERT INTO Location (lat, lng, country) VALUES (-40.34222295, 12.81877222, 'Australia');
+INSERT INTO Location (lat, lng, country) VALUES (9.24914798, -126.90281711, 'Uinted States');
 
-INSERT INTO Location (lat, lng, country) VALUES (-10.14852188, 155.72264639, 'Argentina');
+INSERT INTO Location (lat, lng, country) VALUES (-10.14852188, 155.72264639, 'United States');
 INSERT INTO Location (lat, lng, country) VALUES (-69.80025379, -148.88810459, 'Cuba');
 INSERT INTO Location (lat, lng, country) VALUES (-56.31474676, 88.78286033, 'Mongolia');
 INSERT INTO Location (lat, lng, country) VALUES (0.5616872, 117.57850121, 'Costa Rica');
-INSERT INTO Location (lat, lng, country) VALUES (47.54224876, 86.56017423, 'MURICA');
+INSERT INTO Location (lat, lng, country) VALUES (47.54224876, 86.56017423, 'United States');
 
 
 INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (2231, 'Jelena Djovik', 'Alcatel Onetouch S5', 37.09024, -95.712891,'laptop');
