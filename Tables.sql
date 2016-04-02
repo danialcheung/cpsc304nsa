@@ -1,14 +1,14 @@
-drop table police;
-drop table CIA;
-drop table User;
-drop table Transaction;
-drop table Photo;
-drop table Text;
-drop table `Call`;
-drop table CommLog;
-drop table Data;
-drop table Device;
-drop table Location;
+drop table if exists police;
+drop table if exists CIA;
+drop table if exists User;
+drop table if exists Transaction;
+drop table if exists Photo;
+drop table if exists Text;
+drop table if exists `Call`;
+drop table if exists CommLog;
+drop table if exists Data;
+drop table if exists Device;
+drop table if exists Location;
 
 CREATE TABLE Location(
   lat FLOAT NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE Device (
 CREATE TABLE Data (
   data_id    INT      NOT NULL,
   date       DATETIME NULL,
-  suspicious BOOLEAN  NULL,
+  suspicious BIT(1)  NOT NULL,
   lat        FLOAT    NULL,
   lng        FLOAT    NULL,
   device_id  INT      NULL,
