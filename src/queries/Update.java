@@ -17,8 +17,9 @@ public class Update extends Query {
 	}
 	
 	/* mark data as suspicious */
-	public void changeDateOfData(Integer data_id) {
-		String update = "UPDATE data SET suspicious = 1 WHERE data_id = " + data_id + ";";
+	public void changeDateOfData(Integer data_id, Integer date) {
+//		date is formatted as YYYYMMDD
+		String update = "UPDATE data SET date = " + date + " WHERE data_id = " + data_id + ";";
 		
         Statement statement = null; 
         try {           
