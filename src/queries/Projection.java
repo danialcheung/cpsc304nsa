@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,8 +35,9 @@ public class Projection extends Query {
 	}
 
 	/* get a list of names of people who own a given device type */
-	public List<String> projectOwnerOfDeviceType(String deviceType) {
-		List<String> owners = new ArrayList<String>();
+	public List<List<String>> projectOwnerOfDeviceType(String deviceType) {
+		List<List<String>> table = new ArrayList<List<String>>();
+		table.add(Arrays.asList("owner"));
 		String query = "SELECT owner FROM device WHERE device_type LIKE \"" + deviceType + "\";";
 		
         ResultSet rs = null;
@@ -44,13 +46,13 @@ public class Projection extends Query {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	owners.add(rs.getString("owner"));
+            	table.add(Arrays.asList(rs.getString("owner")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
-		return owners;
+		return table;
 	}
 
 	

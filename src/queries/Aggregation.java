@@ -40,9 +40,11 @@ public class Aggregation extends Query {
 		runQuery(query, Arrays.asList(new Pair<AttrType, String>(aggrAttr.getLeft(), aggrType + "(" + aggrAttr.getRight() + ")")));
 	}
 	
-	public List<Pair<String,Integer>> countSuspiciousDataByCountry() {
-		List<Pair<String,Integer>> countryCount = new ArrayList<Pair<String,Integer>>();
-		String query = "SELECT country, COUNT(data_id)\n"
+	public List<List<String>> countSuspiciousDataByCountry() {
+		List<List<String>> table = new ArrayList<List<String>>();
+		table.add(Arrays.asList("country","suspicious_count"));
+		String query = 
+				"SELECT country, COUNT(data_id)\n"
 				+ "FROM data, location\n"
 				+ "WHERE data.lat = location.lat AND data.lng = location.lng AND suspicious = 1\n"
 				+ "GROUP BY country;";
@@ -53,12 +55,14 @@ public class Aggregation extends Query {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	countryCount.add(new Pair<String,Integer>(rs.getString("country"),rs.getInt("COUNT(data_id)")));
+            	table.add(Arrays.asList(
+            		rs.getString("country"),
+            		String.valueOf(rs.getInt("COUNT(data_id)"))));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-		return countryCount;	
+		return table;	
 	}
 }
