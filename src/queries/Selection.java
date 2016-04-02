@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -15,17 +16,21 @@ import tables.Device;
 import tables.Table;
 
 public class Selection extends Query {
-	
-	private Table table;
-	private Stack<Pair<Pair<AttrType, String>, String>> attrVals;
-	
+		
 	public Selection(Connection con) {
 		super(con);
-		this.attrVals = new Stack<Pair<Pair<AttrType,String>,String>>();
+		List<List<String>> xz = selectDataFromCountry("Canada");
+		for (List<String> x : xz) {
+			for (String s : x) {
+				System.out.print(s + ", ");
+			}
+			System.out.println("");
+		}
 	}
 	
 	public void select() {
-		table = selectTable();
+		Table table = selectTable();
+		Stack<Pair<Pair<AttrType, String>, String>> attrVals = new Stack<Pair<Pair<AttrType,String>,String>>();
 		Pair<AttrType, String> attr;
 		String val;
 		
@@ -37,12 +42,12 @@ public class Selection extends Query {
 			attrVals.push(new Pair(attr,val));
 		} while (attr != null && val != "");
 		
-		String query = buildQuery();
+		String query = buildQuery(table, attrVals);
 		runQuery(query, table.getAttrs());
     
 	}
 	
-	private String buildQuery() {
+	private String buildQuery(Table table, Stack<Pair<Pair<AttrType, String>, String>> attrVals) {
         String query = "SELECT * FROM " + table.getName();
         Pair<Pair<AttrType,String>,String> av;
         if (attrVals.size() > 0) {
@@ -59,24 +64,33 @@ public class Selection extends Query {
         return query;
 	}
 	
-	/* get a list of names of people who own a given device type */
-	public List<String> selectOwnerByDeviceType(String deviceType) {
-		List<String> owners = new ArrayList<String>();
-		String query = "SELECT owner FROM device WHERE device_type LIKE \"" + deviceType + "\";";
+	/* get data in a given country */
+	public List<List<String>> selectDataFromCountry(String country) {
+		List<List<String>> table = new ArrayList<List<String>>();
+		table.add(Arrays.asList("data_id", "date", "suspicious", "lat", "lng", "device_id"));
+		
+		String query = "SELECT data.* FROM data, location WHERE data.lat = location.lat AND data.lng = location.lng "
+				+ "AND location.country LIKE \"" + country + "\";";
 		
         ResultSet rs = null;
         Statement statement = null; 
-        try {           
+        try {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	owners.add(rs.getString("owner"));
+            	List<String> row = Arrays.asList(
+            			String.valueOf(rs.getInt("data_id")),
+            			String.valueOf(rs.getDate("date")),
+            			(rs.getBoolean("suspicious")) ? "true" : "false",
+            			String.valueOf(rs.getFloat("lat")),
+            			String.valueOf(rs.getFloat("lng")),
+            			String.valueOf(rs.getInt("device_id")));
+            	table.add(row);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-		return owners;
+        return table;
 	}
-
+	
 }

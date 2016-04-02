@@ -1,6 +1,10 @@
 package queries;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,8 +30,28 @@ public class Projection extends Query {
 			attr = selectAttr(table.getAttrs(), "select another attribute:", true);
 		}
 		
-		runQuery("SELECT * FROM " + table.getName() + ";", attrs);
-		
+		runQuery("SELECT * FROM " + table.getName() + ";", attrs);	
 	}
 
+	/* get a list of names of people who own a given device type */
+	public List<String> projectOwnerOfDeviceType(String deviceType) {
+		List<String> owners = new ArrayList<String>();
+		String query = "SELECT owner FROM device WHERE device_type LIKE \"" + deviceType + "\";";
+		
+        ResultSet rs = null;
+        Statement statement = null; 
+        try {           
+            statement = con.createStatement();
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+            	owners.add(rs.getString("owner"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+		return owners;
+	}
+
+	
 }
