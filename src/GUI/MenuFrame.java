@@ -63,6 +63,11 @@ public class MenuFrame {
 		deleteButton.setText("Stop tracking a device");
 		deleteButton.addActionListener(e -> deleteAction(e));
 		frame.add(deleteButton);
+		
+		JButton deleteButton2 = new JButton();
+		deleteButton2.setText("Nuke data");
+		deleteButton2.addActionListener(e -> deleteAction2(e));
+		frame.add(deleteButton2);
 
 		JButton updateButton = new JButton();
 		updateButton.setText("Falsify evidence");
@@ -86,6 +91,12 @@ public class MenuFrame {
 		Deletion d = new Deletion(con);
 		JTable table = d.selectAllDevices();
 		new TableFrame(table, "delete", "device id", d);
+	}
+	
+	private void deleteAction2(ActionEvent e) {
+		Deletion d = new Deletion(con);
+		JTable table = d.selectAllData();
+		new TableFrame(table, "delete", "data id", d);
 	}
 	
 	private void nestedAggrAction(ActionEvent e) {
