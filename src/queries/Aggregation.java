@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JTable;
+
 import main.AttrType;
 import main.Pair;
 import tables.Table;
@@ -17,7 +19,6 @@ public class Aggregation extends Query {
 	
 	public Aggregation(Connection con) {
 		super(con);
-		// (1 point) Aggregation query: pick one query that requires the use of aggregation (min, max, average, or count are all fine).
 	}
 	
 	public void aggregate() {
@@ -40,9 +41,10 @@ public class Aggregation extends Query {
 		runQuery(query, Arrays.asList(new Pair<AttrType, String>(aggrAttr.getLeft(), aggrType + "(" + aggrAttr.getRight() + ")")));
 	}
 	
-	public List<List<String>> countSuspiciousDataByCountry() {
-		List<List<String>> table = new ArrayList<List<String>>();
-		table.add(Arrays.asList("country","suspicious_count"));
+	public JTable countSuspiciousDataByCountry() {
+		String[] columnNames = {"country", "suspicious_data_count"};
+		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
+
 		String query = 
 				"SELECT country, COUNT(data_id)\n"
 				+ "FROM data, location\n"
@@ -55,14 +57,28 @@ public class Aggregation extends Query {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	table.add(Arrays.asList(
+            	data.add(Arrays.asList(
             		rs.getString("country"),
-            		String.valueOf(rs.getInt("COUNT(data_id)"))));
+            		rs.getInt("COUNT(data_id)")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-		return table;	
+
+        Object[][] dataArray = new Object[data.size()][];
+        for (int i = 0; i < data.size(); i++) {
+            List<Object> row = data.get(i);
+            dataArray[i] = row.toArray(new Object[row.size()]);
+        }
+
+		return new JTable(dataArray, columnNames);
+		}
+	
+	
+	@Override
+	public JTable doQuery(String arg) {
+		return countSuspiciousDataByCountry();
 	}
+
 }

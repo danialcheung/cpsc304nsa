@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
+import queries.Aggregation;
 import queries.Join;
 import queries.Projection;
 
@@ -68,13 +69,17 @@ public class MenuFrame {
 		// TODO Auto-generated method stub
 	}
 	private void deleteAction(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 	}
 	private void nestedAggrAction(ActionEvent e) {
 		// TODO Auto-generated method stub
 	}
 	private void aggrAction(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Aggregation a = new Aggregation(con);
+		Object[][] empty = {{"",""}};
+		String[] header = {"country", "suspicious_data_count"};
+		JTable table = new JTable(empty, header);
+		new TableFrame(table, "count", "", a);
 	}
 	private void selectAction(ActionEvent e) {
 		// TODO Auto-generated method stub
