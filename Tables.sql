@@ -204,15 +204,15 @@ INSERT INTO `Call` (data_id, beginning, end) VALUES (7712323, '2016-02-22 13:01:
 INSERT INTO `Call` (data_id, beginning, end) VALUES (9923472, '2001-09-11 09:11:11', '2001-09-11 09:44:21');
 INSERT INTO `Call` (data_id, beginning, end) VALUES (2234029, '1995-10-01 10:00:01', '1995-10-01 11:12:13');
 INSERT INTO `Call` (data_id, beginning, end) VALUES (7563947, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
-INSERT INTO `Call` (data_id, beginning, end) VALUES (2234029, '1995-10-01 10:00:01', '1995-10-01 11:12:13');
-INSERT INTO `Call` (data_id, beginning, end) VALUES (7563947, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
 INSERT INTO `Call` (data_id, beginning, end) VALUES (8923905, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
 INSERT INTO `Call` (data_id, beginning, end) VALUES (0918243, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
-INSERT INTO `Call` (data_id, beginning, end) VALUES (3298757, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
+INSERT INTO `Call` (data_id, beginning, end) VALUES (0247094, '1995-10-01 10:00:01', '1995-10-01 11:12:13');
+INSERT INTO `Call` (data_id, beginning, end) VALUES (4251462, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
+INSERT INTO `Call` (data_id, beginning, end) VALUES (3956189, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
 
-INSERT INTO Text (data_id, length) VALUES (0247094, 142);
+/*INSERT INTO Text (data_id, length) VALUES (0247094, 142);
 INSERT INTO Text (data_id, length) VALUES (4251462, 32);
-INSERT INTO Text (data_id, length) VALUES (3956189, 97);
+INSERT INTO Text (data_id, length) VALUES (3956189, 97);*/
 INSERT INTO Text (data_id, length) VALUES (8320176, 2);
 INSERT INTO Text (data_id, length) VALUES (9184461, 54);
 
