@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JTable;
+
 import main.AttrType;
 import main.Pair;
 import tables.Table;
@@ -44,9 +46,9 @@ public class NestedAggregationWithGroupBy extends Query {
 	}
 	
 	/* get country with the min/max avg transaction amounts  */
-	public List<List<String>> countryWithMinMAxAvgTransactions(Boolean isMax) {
-		List<List<String>> table = new ArrayList<List<String>>();
-		table.add(Arrays.asList("country", (isMax ? "max_avg_amount" : "min_avg_amount")));
+	public JTable countryWithMinMAxAvgTransactions(Boolean isMax) {
+		String[] columnNames = {"country", (isMax ? "max_avg_suspicious_amount" : "min_avg_suspicious_amount")};
+		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
 
 		String query = 
 				"SELECT country, max_amount  " +
@@ -73,16 +75,28 @@ public class NestedAggregationWithGroupBy extends Query {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	List<String> row = Arrays.asList(
+            	data.add(Arrays.asList(
             			rs.getString("country"),
-            			String.valueOf(rs.getFloat("max_amount")));
-            	table.add(row);
+            			rs.getFloat("max_amount")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 		
-		return table;
+        Object[][] dataArray = new Object[data.size()][];
+        for (int i = 0; i < data.size(); i++) {
+            List<Object> row = data.get(i);
+            dataArray[i] = row.toArray(new Object[row.size()]);
+        }
+
+		return new JTable(dataArray, columnNames);
 	}
+	
+	@Override
+	public JTable doQuery(String arg) {
+		Boolean isMax = !arg.toLowerCase().equals("min");
+		return countryWithMinMAxAvgTransactions(isMax);
+		}
+
 
 }

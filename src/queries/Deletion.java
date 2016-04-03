@@ -1,8 +1,14 @@
 package queries;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.swing.JTable;
 
 import main.AttrType;
 import main.Pair;
@@ -38,5 +44,47 @@ public class Deletion extends Query {
             e.printStackTrace();
         }
 	}
+	
+	public JTable selectAllDevices() {
+		String[] columnNames = {"device_id", "owner", "model", "lat", "lng", "device_type"};
+		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
+
+		String query = "SELECT device_id, owner, model, lat, lng, device_type FROM device;";
+		
+        ResultSet rs = null;
+        Statement statement = null; 
+        try {           
+            statement = con.createStatement();
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+            	data.add(Arrays.asList(
+            			rs.getInt("device_id"),
+            			rs.getString("owner"),
+            			rs.getString("model"),
+            			rs.getFloat("lat"),
+            			rs.getFloat("lng"),
+            			rs.getString("device_type")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        Object[][] dataArray = new Object[data.size()][];
+        for (int i = 0; i < data.size(); i++) {
+            List<Object> row = data.get(i);
+            dataArray[i] = row.toArray(new Object[row.size()]);
+        }
+
+		return new JTable(dataArray, columnNames);
+	}
+	
+	@Override
+	public JTable doQuery(String arg) {
+		deleteDevice(Integer.parseInt(arg));
+		return selectAllDevices();
+	}
+
+	
 
 }

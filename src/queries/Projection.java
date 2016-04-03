@@ -9,22 +9,22 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JTable;
+
 import tables.Table;
 import main.AttrType;
 import main.Pair;
 
 public class Projection extends Query {
 
-	private Table table;
-	private List<Pair<AttrType, String>> attrs;
 	
 	public Projection(Connection con) {
 		super(con);	
-		attrs = new LinkedList<Pair<AttrType, String>>();
 	}
 
 	public void project() {
-		table = selectTable();
+		List<Pair<AttrType, String>> attrs = new LinkedList<Pair<AttrType, String>>();
+		Table table = selectTable();
 		Pair<AttrType, String> attr = selectAttr(table.getAttrs(), "select an attribute:");
 		while (attr != null) {
 			attrs.add(attr);
@@ -35,9 +35,10 @@ public class Projection extends Query {
 	}
 
 	/* get a list of names of people who own a given device type */
-	public List<List<String>> projectOwnerOfDeviceType(String deviceType) {
-		List<List<String>> table = new ArrayList<List<String>>();
-		table.add(Arrays.asList("owner"));
+	public JTable projectOwnerOfDeviceType(String deviceType) {
+		String[] columnNames = {"deviceType", "owner"};
+		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
+		
 		String query = "SELECT owner FROM device WHERE device_type LIKE \"" + deviceType + "\";";
 		
         ResultSet rs = null;
@@ -46,14 +47,24 @@ public class Projection extends Query {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	table.add(Arrays.asList(rs.getString("owner")));
+            	data.add(Arrays.asList(deviceType, rs.getString("owner")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
-		return table;
+        Object[][] dataArray = new Object[data.size()][];
+        for (int i = 0; i < data.size(); i++) {
+            List<Object> row = data.get(i);
+            dataArray[i] = row.toArray(new Object[row.size()]);
+        }
+
+		return new JTable(dataArray, columnNames);
+	}
+	
+	@Override
+	public JTable doQuery(String arg) {
+		return projectOwnerOfDeviceType(arg);
 	}
 
-	
 }

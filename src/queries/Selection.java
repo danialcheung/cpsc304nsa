@@ -1,6 +1,6 @@
 package queries;
 
-import java.io.IOException;
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,9 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import javax.swing.JTable;
+
+import GUI.Login2;
+import GUI.TableWindow;
 import main.AttrType;
 import main.Pair;
-import tables.Device;
 import tables.Table;
 
 public class Selection extends Query {
@@ -34,10 +37,20 @@ public class Selection extends Query {
 			if (val == "") { break; }
 			attrVals.push(new Pair(attr,val));
 		} while (attr != null && val != "");
-		
+
 		String query = buildQuery(table, attrVals);
 		runQuery(query, table.getAttrs());
-    
+
+		int ATTR_SIZE = table.getAttrs().size();
+		String[] attrNames = new String[ATTR_SIZE];
+
+		for (int i = 0; i < ATTR_SIZE; i++){
+			attrNames[i] = table.getAttrs().get(i).getRight();
+		}
+
+		TableWindow tableWindow = new TableWindow();
+		tableWindow.initializeTables(attrNames);
+		tableWindow.setVisible(true);
 	}
 	
 	private String buildQuery(Table table, Stack<Pair<Pair<AttrType, String>, String>> attrVals) {
@@ -58,32 +71,43 @@ public class Selection extends Query {
 	}
 	
 	/* get data in a given country */
-	public List<List<String>> selectDataFromCountry(String country) {
-		List<List<String>> table = new ArrayList<List<String>>();
-		table.add(Arrays.asList("data_id", "date", "suspicious", "lat", "lng", "device_id"));
+	public JTable selectDataFromCountry(String country) {
+		String[] columnNames = {"data_id", "date", "suspicious", "lat", "lng", "device_id"};
+		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
 		
 		String query = "SELECT data.* FROM data, location WHERE data.lat = location.lat AND data.lng = location.lng "
 				+ "AND location.country LIKE \"" + country + "\";";
 		
         ResultSet rs = null;
-        Statement statement = null; 
+        Statement statement = null;
+
         try {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	List<String> row = Arrays.asList(
-            			String.valueOf(rs.getInt("data_id")),
-            			String.valueOf(rs.getDate("date")),
-            			(rs.getBoolean("suspicious")) ? "true" : "false",
-            			String.valueOf(rs.getFloat("lat")),
-            			String.valueOf(rs.getFloat("lng")),
-            			String.valueOf(rs.getInt("device_id")));
-            	table.add(row);
+            	data.add(Arrays.asList(
+            			rs.getInt("data_id"),
+            			rs.getDate("date"),
+            			rs.getBoolean("suspicious"),
+            			rs.getFloat("lat"),
+            			rs.getFloat("lng"),
+            			rs.getInt("device_id")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return table;
-	}
 
+        Object[][] dataArray = new Object[data.size()][];
+        for (int i = 0; i < data.size(); i++) {
+            List<Object> row = data.get(i);
+            dataArray[i] = row.toArray(new Object[row.size()]);
+        }
+
+		return new JTable(dataArray, columnNames);
+	}
+	
+	@Override
+	public JTable doQuery(String arg) {
+		return selectDataFromCountry(arg);
+	}
 }

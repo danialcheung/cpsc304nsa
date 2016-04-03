@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import javax.swing.JTable;
+
 import tables.*;
 import main.AttrType;
 import main.Pair;;
@@ -19,6 +21,10 @@ public class Query {
 	public Query(Connection con) {
 		this.con = con;
 		br = new BufferedReader(new InputStreamReader(System.in));
+	}
+	
+	public JTable doQuery(String arg) {
+		return null;
 	}
 
 	protected Table selectTable() {
