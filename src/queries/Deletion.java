@@ -78,13 +78,62 @@ public class Deletion extends Query {
 
 		return new JTable(dataArray, columnNames);
 	}
+
+	public JTable selectAllData() {
+		String[] columnNames = {"data_id", "date", "suspicious", "lat", "lng", "device_id"};
+		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
+		
+		String query = "SELECT * FROM data;";
+		
+		ResultSet rs = null;
+		Statement statement = null;
+		try {
+			statement = con.createStatement();
+			rs = statement.executeQuery(query);
+			while (rs.next()) {
+				data.add(Arrays.asList(
+						rs.getInt("data_id"),
+						rs.getTimestamp("date"),
+						rs.getBoolean("suspicious"),
+						rs.getFloat("lat"),
+						rs.getFloat("lng"),
+						rs.getInt("device_id")));
+			}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        Object[][] dataArray = new Object[data.size()][];
+        for (int i = 0; i < data.size(); i++) {
+            List<Object> row = data.get(i);
+            dataArray[i] = row.toArray(new Object[row.size()]);
+        }
+
+		return new JTable(dataArray, columnNames);
+	}
+
+	/* remove a piece of data from database */
+	public void deleteData(Integer data_id) {
+		Statement statement = null; 
+		try {           
+			statement = con.createStatement();
+			statement.executeUpdate("DELETE FROM data WHERE data_id = " + data_id + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Override
 	public JTable doQuery(String arg) {
-		deleteDevice(Integer.parseInt(arg));
-		return selectAllDevices();
+	    int id = Integer.parseInt(arg);
+		if (arg.length() == 4) {
+			deleteDevice(id);
+			return selectAllDevices();
+		} else {
+			deleteData(id);
+			return selectAllData();
+		}
 	}
-
-	
 
 }
