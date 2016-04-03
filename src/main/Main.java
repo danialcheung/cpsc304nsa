@@ -129,7 +129,7 @@ public class Main implements ActionListener
 		mainFrame.setLocation( (d.width - r.width)/2, (d.height - r.height)/2 );
 
 		// make the window visible
-		//mainFrame.setVisible(true);
+		mainFrame.setVisible(true);
 
 		Login2 login = new Login2();
 		login.setVisible(true);
