@@ -55,13 +55,6 @@ public class Main implements ActionListener
 		Login2 login = new Login2();
 		login.setVisible(true);
 		
-		
-//        Projection p = new Projection(con);
-//		JTable table = p.projectOwnerOfDeviceType("cell phone");
-//		openTableFrame(table, "project", "device type");
-
-//		TableWindow t = new TableWindow();
-//		t.setVisible(true);
 
 		try 
 		{
@@ -74,70 +67,6 @@ public class Main implements ActionListener
 
 	}
 	
-	
-	private void openTableFrame(JTable table, String buttonLabel, String inputLabel) {
-		JFrame frame = new JFrame("Query");
-		frame.setLayout(new BorderLayout());
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-				
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.gridwidth = 6;
-		c.gridheight = 4;
-		c.weightx = 1.0;
-		c.weighty = 1.0;
-		
-		JPanel tablePanel = new JPanel();
-		tablePanel.setLayout(new BorderLayout());
-		tablePanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
-		tablePanel.add(table, BorderLayout.CENTER);
-		panel.add(tablePanel, c);
-
-		JButton actionButton = new JButton();
-		actionButton.setText(buttonLabel);
-		c.fill = GridBagConstraints.NONE;
-		c.gridx = 2;
-		c.gridy = 5;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		c.anchor = GridBagConstraints.SOUTH;
-		c.weightx = 0;
-		c.weighty = 0;
-		panel.add(actionButton, c);
-
-		JButton closeButton = new JButton();
-		closeButton.setText("close");
-		c.fill = GridBagConstraints.NONE;
-		c.gridx = 3;
-		c.gridy = 5;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		c.anchor = GridBagConstraints.SOUTHEAST;
-		c.weightx = 0;
-		c.weighty = 0;
-		panel.add(closeButton, c);
-
-		JTextField text = new JTextField();
-		text.setText(inputLabel);
-		c.gridx = 0;
-		c.gridy = 5;
-		c.gridwidth = 2;
-		c.gridheight = 1;
-		c.weightx = 0;
-		c.weighty = 0;
-		c.anchor = GridBagConstraints.SOUTHWEST;
-		panel.add(text, c);
-
-		frame.add(panel, BorderLayout.CENTER);
-		frame.setSize(600, 400);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	}
-
 	
 	private void createMainFrame() {
 		mainFrame = new JFrame("User Login");
