@@ -2,19 +2,21 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
-import queries.Aggregation;
-import queries.Deletion;
-import queries.Join;
-import queries.NestedAggregationWithGroupBy;
-import queries.Projection;
-import queries.Selection;
+import queries.*;
 
 public class MenuFrame {
 
@@ -79,7 +81,10 @@ public class MenuFrame {
 		return null;
 	}
 	private void updateAction(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Update u = new Update(con);
+		Object[][] empty = {{"",""}};
+		String[] header = {"data_id","date"};
+		JTable table = new JTable(empty, header);
 	}
 	
 	private void deleteAction(ActionEvent e) {
@@ -123,6 +128,21 @@ public class MenuFrame {
 		Object[][] empty = {{"","","",""}};
 		String[] header = {"owner", "data_id", "date", "suspicious"};
 		JTable table = new JTable(empty, header);
+
+		table.getModel().addTableModelListener(
+				new TableModelListener()
+				{
+					public void tableChanged(TableModelEvent evt)
+					{
+						int row = evt.getFirstRow();
+						int column = evt.getColumn();
+						TableModel model = (TableModel)evt.getSource();
+						Object data = model.getValueAt(row, column);
+						System.out.print(data.toString());
+					}
+				});
+
 		new TableFrame(table, "join", "", j);
+
 	}
 }

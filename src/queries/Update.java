@@ -1,5 +1,6 @@
 package queries;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,6 @@ public class Update extends Query {
 
 	public void update() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	/* mark data as suspicious */

@@ -30,6 +30,14 @@ public class TableWindow extends JFrame {
         table1.setModel(model);
     }
 
+    private void table1PropertyChange(PropertyChangeEvent e) {
+        // TODO add your code here
+    }
+
+    private void button1ActionPerformed(ActionEvent e) {
+        // TODO add your code here
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - kek kek
@@ -53,12 +61,14 @@ public class TableWindow extends JFrame {
 
             //---- table1 ----
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            table1.addPropertyChangeListener(e -> table1PropertyChange(e));
             scrollPane1.setViewportView(table1);
         }
         contentPane.add(scrollPane1, CC.xywh(1, 5, 5, 11));
 
         //---- button1 ----
         button1.setText("Populate!");
+        button1.addActionListener(e -> button1ActionPerformed(e));
         contentPane.add(button1, CC.xy(3, 21));
         pack();
         setLocationRelativeTo(getOwner());
