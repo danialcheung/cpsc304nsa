@@ -94,8 +94,7 @@ public class TableFrame {
 	}
 
 	private void actionAction(ActionEvent e) {
-		JTable table;
-		table = query.doQuery(text.getText());
+		JTable table = query.doQuery(text.getText());
 		// note: this is a terrible way of updating the JTable but idk lol
 		frame.dispose();
 		frame = new JFrame();

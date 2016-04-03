@@ -111,7 +111,7 @@ public class MenuFrame {
 		Object[][] empty = {{"",""}};
 		String[] header = {"country", "suspicious_data_count"};
 		JTable table = new JTable(empty, header);
-		new TableFrame(table, "count", "", a);
+		new TableFrame(table, "count", "country", a);
 	}
 	private void selectAction(ActionEvent e) {
 		Selection s = new Selection(con);

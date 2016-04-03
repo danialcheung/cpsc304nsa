@@ -41,14 +41,16 @@ public class Aggregation extends Query {
 		runQuery(query, Arrays.asList(new Pair<AttrType, String>(aggrAttr.getLeft(), aggrType + "(" + aggrAttr.getRight() + ")")));
 	}
 	
-	public JTable countSuspiciousDataByCountry() {
+	/* get count of suspicious data in a given country */
+	public JTable countSuspiciousDataByCountry(String country) {
 		String[] columnNames = {"country", "suspicious_data_count"};
 		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
 
 		String query = 
 				"SELECT country, COUNT(data_id)\n"
 				+ "FROM data, location\n"
-				+ "WHERE data.lat = location.lat AND data.lng = location.lng AND suspicious = 1\n"
+				+ "WHERE data.lat = location.lat AND data.lng = location.lng AND suspicious = true "
+				+ "AND country LIKE \"" + country + "\"\n"
 				+ "GROUP BY country;";
 		
         ResultSet rs = null;
@@ -78,7 +80,7 @@ public class Aggregation extends Query {
 	
 	@Override
 	public JTable doQuery(String arg) {
-		return countSuspiciousDataByCountry();
+		return countSuspiciousDataByCountry(arg);
 	}
 
 }
