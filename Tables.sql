@@ -115,7 +115,7 @@ CREATE TABLE Police(
   FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
-
+/*
 INSERT INTO Location (lat, lng, country) VALUES (37.09024, -95.712891, 'United States');
 INSERT INTO Location (lat, lng, country) VALUES (51.165691, 10.451526, 'Germany');
 INSERT INTO Location (lat, lng, country) VALUES (56.130366, -106.346771, 'Canada');
@@ -146,14 +146,27 @@ INSERT INTO Location (lat, lng, country) VALUES (-56.31474676, 88.78286033, 'Mon
 INSERT INTO Location (lat, lng, country) VALUES (0.5616872, 117.57850121, 'Costa Rica');
 INSERT INTO Location (lat, lng, country) VALUES (47.54224876, 86.56017423, 'United States');
 INSERT INTO Location (lat, lng, country) VALUES (-77.299998, 148.772236, 'Cuba');
-INSERT INTO Location (lat, lng, country) VALUES (88.285398, -11.700036, 'Poland');
+INSERT INTO Location (lat, lng, country) VALUES (88.285398, -11.700036, 'Poland');*/
 
-INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (2231, 'Jelena Djovik', 'Alcatel Onetouch S5', 37.09024, -95.712891,'laptop');
+INSERT INTO Location (lat, lng, country) VALUES (37.09024, -95.712891, 'United States');
+INSERT INTO Location (lat, lng, country) VALUES (51.165691, 10.451526, 'Germany');
+INSERT INTO Location (lat, lng, country) VALUES (56.130366, -106.346771, 'Canada');
+INSERT INTO Location (lat, lng, country) VALUES (-25.274398, 133.775136, 'Australia');
+INSERT INTO Location (lat, lng, country) VALUES (55.378051, -3.435973, 'United Kingdom');
+INSERT INTO Location (lat, lng, country) VALUES (-46.274398, 18.775136, 'Australia');
+INSERT INTO Location (lat, lng, country) VALUES (78.274398, -19.775136, 'Poland');
+INSERT INTO Location (lat, lng, country) VALUES (7.773322, 128.304261, 'Ukraine');
+INSERT INTO Location (lat, lng, country) VALUES (-77.299998, 148.772236, 'Cuba');
+INSERT INTO Location (lat, lng, country) VALUES (0.5616872, 117.57850121, 'Costa Rica');
+INSERT INTO Location (lat, lng, country) VALUES (-56.31474676, 88.78286033, 'Mongolia');
+
+
+INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (2231, 'Jelena Djovik', 'Alcatel Onetouch S5', 78.274398, -19.775136,'laptop');
 INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (6261, 'Omir Jinari', 'Alienware X51', 51.165691, 10.451526, 'desktop');
-INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (8823, 'Mark Ruffalo', 'iPad 2', 56.130366, -106.346771, 'tablet');
-INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (1404, 'Jia Liang', 'Samsung Galaxy S5', -25.274398, 133.775136, 'cell phone');
-INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (7723, 'Leonid Pavel', 'Motorola Moto G', 55.378051, -3.435973, 'cell phone');
-INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (1905, 'John W. Stewart', 'iPad', 47.54224876, 86.56017423, 'tablet');
+INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (8823, 'Mark Ruffalo', 'iPad 2', 0.5616872, 117.57850121, 'tablet');
+INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (1404, 'Jia Liang', 'Samsung Galaxy S5', 55.378051, -3.435973, 'cell phone');
+INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (7723, 'Leonid Pavel', 'Motorola Moto G', 78.274398, -19.775136, 'cell phone');
+INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (1905, 'John W. Stewart', 'iPad', 37.09024, -95.712891, 'tablet');
 INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (3007, 'Polina Splitnikova', 'Nokia 1200', 7.773322, 128.304261, 'cell phone');
 
 
@@ -165,24 +178,24 @@ INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (756394
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (8923905, '2015-03-31', true, -46.274398, 18.775136, 1905);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0918243, '2003-07-11', false, 78.274398, -19.775136, 3007);
 
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0247094, '2014-03-25', false, 58.214496, 18.949128, 8823);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (4251462, '2016-12-25', true, -69.067717, -174.507704, 6261);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (3956189, '2011-08-11', false, -2.026138, -102.952643, 8823);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (8320176, '1998-02-11', false, 7.773322, 128.304261, 1404);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (9184461, '2013-02-02', true, -24.691678, 77.188033, 3007);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (3298757, '2011-08-11', false, 32.904398, 75.778936, 1905);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0247094, '2014-03-25', false, 7.773322, 128.304261, 8823);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (4251462, '2016-12-25', true, -77.299998, 148.772236, 6261);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (3956189, '2011-08-11', false, 0.5616872, 117.57850121, 8823);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (8320176, '1998-02-11', false, -56.31474676, 88.78286033, 1404); 
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (9184461, '2013-02-02', true, 37.09024, -95.712891, 3007);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (3298757, '2011-08-11', false, 56.130366, -106.346771, 1905);
 
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (5446015, '1991-06-27', false, 58.214496, 18.949128, 2231);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0249428, '1992-05-29', false, -1.075264, 42.7196933, 6261);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (6053689, '1993-07-06', false, 5.25875225, 128.0870244, 8823);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (5446015, '1991-06-27', false, -25.274398, 133.775136, 2231);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0249428, '1992-05-29', false, 55.378051, -3.435973, 6261);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (6053689, '1993-07-06', false, -46.274398, 18.775136, 8823);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7532096, '1993-07-23', true, -40.34222295, 12.81877222, 1404);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (1824705, '1994-03-11', false, 9.24914798, -126.90281711, 7723);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (1824705, '1994-03-11', false, 78.274398, -19.775136, 7723);
 
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7479524, '1996-10-05', false, 58.214496, 18.949128, 2231);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (6461270, '2004-02-07', false, -1.075264, 42.7196933, 6261);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0502723, '2005-03-28', false, 5.25875225, 128.0870244, 8823);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (6202385, '2012-04-25', true, -40.34222295, 12.81877222, 1404);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (2945311, '2013-09-06', true, 9.24914798, -126.90281711, 7723);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7479524, '1996-10-05', false, 7.773322, 128.304261, 2231);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (6461270, '2004-02-07', false, -77.299998, 148.772236, 6261);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0502723, '2005-03-28', false, 0.5616872, 117.57850121, 8823);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (6202385, '2012-04-25', true, -56.31474676, 88.78286033, 1404);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (2945311, '2013-09-06', true, 37.09024, -95.712891, 7723);
 
 INSERT INTO CommLog (data_id, sender, reciever) VALUES (2212629, 7723, 2231);
 INSERT INTO CommLog (data_id, sender, reciever) VALUES (7712323, 6261, 2231);
@@ -207,7 +220,6 @@ INSERT INTO `Call` (data_id, beginning, end) VALUES (8923905, '2014-01-01 20:02:
 INSERT INTO `Call` (data_id, beginning, end) VALUES (0918243, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
 INSERT INTO `Call` (data_id, beginning, end) VALUES (0247094, '1995-10-01 10:00:01', '1995-10-01 11:12:13');
 INSERT INTO `Call` (data_id, beginning, end) VALUES (4251462, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
-
 INSERT INTO `Call` (data_id, beginning, end) VALUES (3298757, '2014-01-01 20:02:17', '2014-01-01 21:08:42');
 
 /*INSERT INTO Text (data_id, length) VALUES (0247094, 142);
