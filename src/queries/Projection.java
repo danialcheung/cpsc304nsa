@@ -61,5 +61,10 @@ public class Projection extends Query {
 
 		return new JTable(dataArray, columnNames);
 	}
+	
+	@Override
+	public JTable doQuery(String arg) {
+		return projectOwnerOfDeviceType(arg);
+	}
 
 }

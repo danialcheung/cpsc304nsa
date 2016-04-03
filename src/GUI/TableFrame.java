@@ -19,6 +19,7 @@ public class TableFrame {
 	private String inputLabel;
 	private Query query;
 	private JFrame frame;
+	JTextField text;
 	
 	public TableFrame(JTable table, String buttonLabel, String inputLabel, Query query) {
 		this.buttonLabel = buttonLabel;
@@ -74,7 +75,7 @@ public class TableFrame {
 		c.weighty = 0;
 		panel.add(closeButton, c);
 
-		JTextField text = new JTextField();
+		text = new JTextField();
 		text.setText(inputLabel);
 		c.gridx = 0;
 		c.gridy = 5;
@@ -93,7 +94,11 @@ public class TableFrame {
 	}
 
 	private void actionAction(ActionEvent e) {
-		// TODO Auto-generated method stub
+		JTable table = query.doQuery(text.getText());
+		// note: this is a terrible way of updating the JTable but idk lol
+		frame.dispose();
+		frame = new JFrame();
+		init(table);
 	}
 
 	private void closeAction(ActionEvent e) {
