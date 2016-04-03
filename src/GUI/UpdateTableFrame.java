@@ -11,20 +11,23 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import queries.Query;
+import queries.Update;
 
-public class TableFrame {
+public class UpdateTableFrame {
 	
 	private String buttonLabel;
-	private String inputLabel;
-	private Query query;
+	private String inputLabel1;
+	private String inputLabel2;
+	private Update u;
 	private JFrame frame;
-	JTextField text;
+	JTextField text1;
+	JTextField text2;
 	
-	public TableFrame(JTable table, String buttonLabel, String inputLabel, Query query) {
+	public UpdateTableFrame(JTable table, String buttonLabel, String inputLabel1, String inputLabel2, Update u) {
 		this.buttonLabel = buttonLabel;
-		this.inputLabel = inputLabel;
-		this.query = query;
+		this.inputLabel1 = inputLabel1;
+		this.inputLabel2 = inputLabel2;
+		this.u = u;
 		this.frame = new JFrame();
 		init(table);
 	}
@@ -75,8 +78,7 @@ public class TableFrame {
 		c.weighty = 0;
 		panel.add(closeButton, c);
 
-		text = new JTextField();
-		text.setText(inputLabel);
+		JPanel inputPanel = new JPanel();
 		c.gridx = 0;
 		c.gridy = 5;
 		c.gridwidth = 2;
@@ -84,9 +86,14 @@ public class TableFrame {
 		c.weightx = 0;
 		c.weighty = 0;
 		c.anchor = GridBagConstraints.SOUTHWEST;
-		if (inputLabel != "") {
-			panel.add(text, c);
-		}
+		panel.add(inputPanel, c);
+		
+		text1 = new JTextField();
+		text1.setText(inputLabel1);
+		inputPanel.add(text1);
+		text2 = new JTextField();
+		text2.setText(inputLabel2);
+		inputPanel.add(text2);
 
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setSize(600, 400);
@@ -96,7 +103,8 @@ public class TableFrame {
 	}
 
 	private void actionAction(ActionEvent e) {
-		JTable table = query.doQuery(text.getText());
+		JTable table;
+		table = u.doUpdate(text1.getText(), text2.getText());
 		// note: this is a terrible way of updating the JTable but idk lol
 		frame.dispose();
 		frame = new JFrame();
