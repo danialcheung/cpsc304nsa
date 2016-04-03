@@ -14,6 +14,7 @@ import queries.Deletion;
 import queries.Join;
 import queries.NestedAggregationWithGroupBy;
 import queries.Projection;
+import queries.Selection;
 
 public class MenuFrame {
 
@@ -53,7 +54,7 @@ public class MenuFrame {
 		frame.add(nestedAggrButton);
 		
 		JButton divisionButton = new JButton();
-		// TODO
+		// TODO this whole thing
 		divisionButton.setText("Some division query ???");
 		divisionButton.addActionListener(e -> divisionAggrAction(e));
 		frame.add(divisionButton);
@@ -102,8 +103,12 @@ public class MenuFrame {
 		new TableFrame(table, "count", "", a);
 	}
 	private void selectAction(ActionEvent e) {
-		// TODO Auto-generated method stub
-	}
+		Selection s = new Selection(con);
+		Object[][] empty = {{"","","","","",""}};
+		String[] header ={"data_id", "date", "suspicious", "lat", "lng", "device_id"};
+		JTable table = new JTable(empty, header);
+		new TableFrame(table, "select", "country", s);
+		}
 	
 	private void projectAction(ActionEvent e) {
 		Projection p = new Projection(con);
