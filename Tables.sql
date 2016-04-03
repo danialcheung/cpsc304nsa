@@ -188,7 +188,7 @@ INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (329875
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (5446015, '1991-06-27', false, -25.274398, 133.775136, 2231);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0249428, '1992-05-29', false, 55.378051, -3.435973, 6261);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (6053689, '1993-07-06', false, -46.274398, 18.775136, 8823);
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7532096, '1993-07-23', true, -40.34222295, 12.81877222, 1404);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7532096, '1993-07-23', true, 51.165691, 10.451526, 1404);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (1824705, '1994-03-11', false, 78.274398, -19.775136, 7723);
 
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7479524, '1996-10-05', false, 7.773322, 128.304261, 2231);
