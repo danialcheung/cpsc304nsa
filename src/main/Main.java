@@ -53,8 +53,96 @@ public class Main implements ActionListener
 	public Main()
 	{
 
-		mainFrame = new JFrame("User Login");
+		connect("root","luckey");
+		
+        Projection p = new Projection(con);
+		JTable table = p.projectOwnerOfDeviceType("cell phone");
 
+		openTableFrame(table, "project", "device type");
+//		Login2 login = new Login2();
+//		login.setVisible(true);
+
+//		TableWindow t = new TableWindow();
+//		t.setVisible(true);
+
+		try 
+		{
+			// Load the MySQL driver
+			Class.forName(DRIVER_CLASS);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+	}
+	
+	
+	private void openTableFrame(JTable table, String buttonLabel, String inputLabel) {
+		JFrame frame = new JFrame("Query");
+		frame.setLayout(new BorderLayout());
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+				
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = 6;
+		c.gridheight = 4;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		
+		JPanel tablePanel = new JPanel();
+		tablePanel.setLayout(new BorderLayout());
+		tablePanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
+		tablePanel.add(table, BorderLayout.CENTER);
+		panel.add(tablePanel, c);
+
+		JButton actionButton = new JButton();
+		actionButton.setText(buttonLabel);
+		c.fill = GridBagConstraints.NONE;
+		c.gridx = 2;
+		c.gridy = 5;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		c.anchor = GridBagConstraints.SOUTH;
+		c.weightx = 0;
+		c.weighty = 0;
+		panel.add(actionButton, c);
+
+		JButton closeButton = new JButton();
+		closeButton.setText("close");
+		c.fill = GridBagConstraints.NONE;
+		c.gridx = 3;
+		c.gridy = 5;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		c.anchor = GridBagConstraints.SOUTHEAST;
+		c.weightx = 0;
+		c.weighty = 0;
+		panel.add(closeButton, c);
+
+		JTextField text = new JTextField();
+		text.setText(inputLabel);
+		c.gridx = 0;
+		c.gridy = 5;
+		c.gridwidth = 2;
+		c.gridheight = 1;
+		c.weightx = 0;
+		c.weighty = 0;
+		c.anchor = GridBagConstraints.SOUTHWEST;
+		panel.add(text, c);
+
+		frame.add(panel, BorderLayout.CENTER);
+		frame.setSize(600, 400);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
+
+	
+	private void createMainFrame() {
+		mainFrame = new JFrame("User Login");
 
 		JLabel usernameLabel = new JLabel("Enter username: ");
 		JLabel passwordLabel = new JLabel("Enter password: ");
@@ -128,30 +216,13 @@ public class Main implements ActionListener
 		Dimension d = mainFrame.getToolkit().getScreenSize();
 		Rectangle r = mainFrame.getBounds();
 		mainFrame.setLocation( (d.width - r.width)/2, (d.height - r.height)/2 );
-
-		// make the window visible
+		
 		mainFrame.setVisible(true);
-
-		Login2 login = new Login2();
-		login.setVisible(true);
-
-
+		
 		// place the cursor in the text field for the username
-		//usernameField.requestFocus();
-
-		try 
-		{
-			// Load the MySQL driver
-			Class.forName(DRIVER_CLASS);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-
+		usernameField.requestFocus();
 
 	}
-
 
 	/*
 	 * connects to MySQL database named ug using user supplied username and password
@@ -186,35 +257,7 @@ public class Main implements ActionListener
 			// remove the login window and display a text menu 
 			mainFrame.dispose();
 			showMenu();    
-			
-			// for sample program for testing:
-//			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//	        System.out.println("Enter the EmployeeID:");
-//	         
-//	        int employeeId;
-//	        try {
-//	            employeeId = Integer.parseInt(br.readLine());
-//	            Employee employee = getEmployee(employeeId);
-//	            System.out.println(employee);           
-//	        } catch (NumberFormatException nfe) {
-//	            nfe.printStackTrace();
-//	        } catch (IOException ioe) {
-//	            ioe.printStackTrace();
-//	        } 
-			
-//			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//	        System.out.println("Enter the DeviceID:");
-//	         
-//	        int deviceId;
-//	        try {
-//	            deviceId = Integer.parseInt(br.readLine());
-//	            Device device = getDevice(deviceId);
-//	            System.out.println(device);           
-//	        } catch (NumberFormatException nfe) {
-//	            nfe.printStackTrace();
-//	        } catch (IOException ioe) {
-//	            ioe.printStackTrace();
-//	        }
+
 		}
 		else
 		{
@@ -233,69 +276,6 @@ public class Main implements ActionListener
 		}             
 	}
 
-//    public Device getDevice(int deviceId)  {      
-//        ResultSet rs = null;
-//        Statement statement = null; 
-//         
-//        Device device = null;
-//        String query = "SELECT * FROM device WHERE device_id=" + deviceId;
-//        try {           
-//            statement = con.createStatement();
-//            rs = statement.executeQuery(query);
-//            if (rs.next()) {
-//            	device = new Device();
-//            	device.setDevId(rs.getInt("device_id"));
-//            	device.setOwner(rs.getString("owner"));
-//            	device.setModel(rs.getString("model"));
-//            	device.setDevType(rs.getString("device_type"));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (con != null) {
-//                try {
-//                    con.close();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        return device;
-//    }
-    
-//	/*
-//	 * sample query for testing
-//	 */
-//    public Employee getEmployee(int employeeId)  {      
-//        ResultSet rs = null;
-//        Statement statement = null; 
-//         
-//        Employee employee = null;
-//        String query = "SELECT * FROM employee WHERE emp_id=" + employeeId;
-//        try {           
-//            statement = con.createStatement();
-//            rs = statement.executeQuery(query);
-//            if (rs.next()) {
-//                employee = new Employee();
-//                employee.setEmpId(rs.getInt("emp_id"));
-//                employee.setEmpName(rs.getString("emp_name"));
-//                employee.setDob(rs.getDate("dob"));
-//                employee.setSalary(rs.getDouble("salary"));
-//                employee.setDeptId((rs.getInt("dept_id")));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (con != null) {
-//                try {
-//                    con.close();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        return employee;
-//    }
     
 	/*
 	 * displays simple text interface
@@ -398,270 +378,6 @@ public class Main implements ActionListener
 		}
 	}
 
-
-//	/*
-//	 * inserts a branch
-//	 */ 
-//	private void insertBranch()
-//	{
-//		int                bid;
-//		String             bname;
-//		String             baddr;
-//		String             bcity;
-//		int                bphone;
-//		PreparedStatement  ps;
-//
-//		try
-//		{
-//			ps = con.prepareStatement("INSERT INTO branch VALUES (?,?,?,?,?)");
-//
-//			System.out.print("\nBranch ID: ");
-//			bid = Integer.parseInt(in.readLine());
-//			ps.setInt(1, bid);
-//
-//			System.out.print("\nBranch Name: ");
-//			bname = in.readLine();
-//			ps.setString(2, bname);
-//
-//			System.out.print("\nBranch Address: ");
-//			baddr = in.readLine();
-//
-//			if (baddr.length() == 0)
-//			{
-//				ps.setString(3, null);
-//			}
-//			else
-//			{
-//				ps.setString(3, baddr);
-//			}
-//
-//			System.out.print("\nBranch City: ");
-//			bcity = in.readLine();
-//			ps.setString(4, bcity);
-//
-//			System.out.print("\nBranch Phone: ");
-//			String phoneTemp = in.readLine();
-//			if (phoneTemp.length() == 0)
-//			{
-//				ps.setNull(5, java.sql.Types.INTEGER);
-//			}
-//			else
-//			{
-//				bphone = Integer.parseInt(phoneTemp);
-//				ps.setInt(5, bphone);
-//			}
-//
-//			ps.executeUpdate();
-//
-//			// commit work 
-//			con.commit();
-//
-//			ps.close();
-//		}
-//		catch (IOException e)
-//		{
-//			System.out.println("IOException!");
-//		}
-//		catch (SQLException ex)
-//		{
-//			System.out.println("Message: " + ex.getMessage());
-//			try 
-//			{
-//				// undo the insert
-//				con.rollback();	
-//			}
-//			catch (SQLException ex2)
-//			{
-//				System.out.println("Message: " + ex2.getMessage());
-//				System.exit(-1);
-//			}
-//		}
-//	}
-//
-//
-//	/*
-//	 * deletes a branch
-//	 */ 
-//	private void deleteBranch()
-//	{
-//		int                bid;
-//		PreparedStatement  ps;
-//
-//		try
-//		{
-//			ps = con.prepareStatement("DELETE FROM branch WHERE branch_id = ?");
-//
-//			System.out.print("\nBranch ID: ");
-//			bid = Integer.parseInt(in.readLine());
-//			ps.setInt(1, bid);
-//
-//			int rowCount = ps.executeUpdate();
-//
-//			if (rowCount == 0)
-//			{
-//				System.out.println("\nBranch " + bid + " does not exist!");
-//			}
-//
-//			con.commit();
-//
-//			ps.close();
-//		}
-//		catch (IOException e)
-//		{
-//			System.out.println("IOException!");
-//		}
-//		catch (SQLException ex)
-//		{
-//			System.out.println("Message: " + ex.getMessage());
-//
-//			try 
-//			{
-//				con.rollback();	
-//			}
-//			catch (SQLException ex2)
-//			{
-//				System.out.println("Message: " + ex2.getMessage());
-//				System.exit(-1);
-//			}
-//		}
-//	}
-//
-//
-//	/*
-//	 * updates the name of a branch
-//	 */ 
-//	private void updateBranch()
-//	{
-//		int                bid;
-//		String             bname;
-//		PreparedStatement  ps;
-//
-//		try
-//		{
-//			ps = con.prepareStatement("UPDATE branch SET branch_name = ? WHERE branch_id = ?");
-//
-//			System.out.print("\nBranch ID: ");
-//			bid = Integer.parseInt(in.readLine());
-//			ps.setInt(2, bid);
-//
-//			System.out.print("\nBranch Name: ");
-//			bname = in.readLine();
-//			ps.setString(1, bname);
-//
-//			int rowCount = ps.executeUpdate();
-//			if (rowCount == 0)
-//			{
-//				System.out.println("\nBranch " + bid + " does not exist!");
-//			}
-//
-//			con.commit();
-//
-//			ps.close();
-//		}
-//		catch (IOException e)
-//		{
-//			System.out.println("IOException!");
-//		}
-//		catch (SQLException ex)
-//		{
-//			System.out.println("Message: " + ex.getMessage());
-//
-//			try 
-//			{
-//				con.rollback();	
-//			}
-//			catch (SQLException ex2)
-//			{
-//				System.out.println("Message: " + ex2.getMessage());
-//				System.exit(-1);
-//			}
-//		}	
-//	}
-//
-//
-//	/*
-//	 * display information about branches
-//	 */ 
-//	private void showBranch()
-//	{
-//		String     bid;
-//		String     bname;
-//		String     baddr;
-//		String     bcity;
-//		String     bphone;
-//		Statement  stmt;
-//		ResultSet  rs;
-//
-//		try
-//		{
-//			stmt = con.createStatement();
-//
-//			rs = stmt.executeQuery("SELECT * FROM branch");
-//
-//			// get info on ResultSet
-//			ResultSetMetaData rsmd = rs.getMetaData();
-//
-//			// get number of columns
-//			int numCols = rsmd.getColumnCount();
-//
-//			System.out.println(" ");
-//
-//			// display column names;
-//			for (int i = 0; i < numCols; i++)
-//			{
-//				// get column name and print it
-//
-//				System.out.printf("%-15s", rsmd.getColumnName(i+1));    
-//			}
-//
-//			System.out.println(" ");
-//
-//			while(rs.next() && !rs.wasNull())
-//			{
-//				// for display purposes get everything from MySQL 
-//				// as a string
-//
-//				// simplified output formatting; truncation may occur
-//
-//				bid = rs.getString("branch_id");
-//				System.out.printf("%-10.10s", bid);
-//
-//				bname = rs.getString("branch_name");
-//				System.out.printf("%-20.20s", bname);
-//
-//				baddr = rs.getString("branch_addr");
-//				if (rs.wasNull())
-//				{
-//					System.out.printf("%-20.20s", " ");
-//				}
-//				else
-//				{
-//					System.out.printf("%-20.20s", baddr);
-//				}
-//
-//				bcity = rs.getString("branch_city");
-//				System.out.printf("%-15.15s", bcity);
-//
-//				bphone = rs.getString("branch_phone");
-//				if (rs.wasNull())
-//				{
-//					System.out.printf("%-15.15s\n", " ");
-//				}
-//				else
-//				{
-//					System.out.printf("%-15.15s\n", bphone);
-//				}      
-//			}
-//
-//			// close the statement; 
-//			// the ResultSet will also be closed
-//			stmt.close();
-//		}
-//		catch (SQLException ex)
-//		{
-//			System.out.println("Message: " + ex.getMessage());
-//		}	
-//	}
 
 
 	public static void main(String args[])
