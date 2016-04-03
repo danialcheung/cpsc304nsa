@@ -135,7 +135,7 @@ public class Main implements ActionListener
 		login.setVisible(true);
 
 		// place the cursor in the text field for the username
-		usernameField.requestFocus();
+		//usernameField.requestFocus();
 
 		try 
 		{

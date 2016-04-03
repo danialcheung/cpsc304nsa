@@ -6,15 +6,26 @@ package GUI;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
 
 /**
  * @author kek kek
  */
-public class Menu extends JFrame {
-    public Menu() {
+public class TableWindow extends JFrame {
+    public TableWindow() {
         initComponents();
+    }
+
+    public void initializeTables(String[] Column){
+
+        for (int i = 0; i < Column.length-1; i++){
+            table1.getColumnModel().getColumn(i).setHeaderValue(Column[i]);
+        }
+
     }
 
     private void initComponents() {

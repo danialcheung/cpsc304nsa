@@ -1,5 +1,6 @@
 package queries;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import GUI.TableWindow;
 import main.AttrType;
 import main.Pair;
 import tables.Table;
@@ -32,10 +34,22 @@ public class Selection extends Query {
 			if (val == "") { break; }
 			attrVals.push(new Pair(attr,val));
 		} while (attr != null && val != "");
-		
+
 		String query = buildQuery(table, attrVals);
 		runQuery(query, table.getAttrs());
-    
+
+		int ATTR_SIZE = table.getAttrs().size();
+		String[] attrNames = new String[ATTR_SIZE];
+
+		for (int i = 0; i < ATTR_SIZE-1; i++){
+			attrNames[i] = table.getAttrs().get(i).getRight();
+		}
+
+		TableWindow tableWindow = new TableWindow();
+		tableWindow.initializeTables(attrNames);
+		tableWindow.setVisible(true);
+
+
 	}
 	
 	private String buildQuery(Table table, Stack<Pair<Pair<AttrType, String>, String>> attrVals) {
