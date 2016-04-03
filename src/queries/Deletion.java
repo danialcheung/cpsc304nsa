@@ -128,11 +128,11 @@ public class Deletion extends Query {
 	public JTable doQuery(String arg) {
 	    int id = Integer.parseInt(arg);
 		if (arg.length() == 4) {
-			deleteData(id);
-			return selectAllData();
-		} else {
 			deleteDevice(id);
 			return selectAllDevices();
+		} else {
+			deleteData(id);
+			return selectAllData();
 		}
 	}
 
