@@ -58,7 +58,7 @@ public class Login2 extends JFrame {
             System.out.println("Invalid Username or Password");
         }
     }
-    
+
     private void button4ActionPerformed(ActionEvent e){
         String username = textField1.getText();
         String password = String.valueOf(passwordField1.getPassword());
