@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import queries.Aggregation;
+import queries.Deletion;
 import queries.Join;
 import queries.Projection;
 
@@ -68,9 +69,13 @@ public class MenuFrame {
 	private void updateAction(ActionEvent e) {
 		// TODO Auto-generated method stub
 	}
+	
 	private void deleteAction(ActionEvent e) {
-		
+		Deletion d = new Deletion(con);
+		JTable table = d.selectAllDevices();
+		new TableFrame(table, "delete", "device id", d);
 	}
+	
 	private void nestedAggrAction(ActionEvent e) {
 		// TODO Auto-generated method stub
 	}
