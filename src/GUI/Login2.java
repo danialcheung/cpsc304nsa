@@ -6,27 +6,54 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import javax.swing.*;
 
 /**
  * @author kek kek
  */
 public class Login2 extends JFrame {
+	
+	private Connection con;
+
     public Login2() {
         initComponents();
     }
 
     private void button1ActionPerformed(ActionEvent e) {
-        String Username = textField1.getText();
-        String Password = String.valueOf(passwordField1.getPassword());
-        if (Username.equals("admin") && Password.equals("password")){
+        String username = textField1.getText();
+        String password = String.valueOf(passwordField1.getPassword());
+        if (connect(username,password)){
             setVisible(false);
             dispose();
+            new MenuFrame(con);
         } else {
-            System.out.print("Invalid Password");
+            System.out.println("Invalid Password");
         }
     }
 
+	private boolean connect(String username, String password)
+	{
+		String connectURL = "jdbc:mysql://localhost:3306/nsa?useSSL=false";
+
+		try 
+		{
+			con = DriverManager.getConnection(connectURL,username,password);
+
+			System.out.println("\nConnected to MySQL!");
+			return true;
+		}
+		catch (SQLException ex)
+		{
+			System.out.println("Message: " + ex.getMessage());
+			return false;
+		}
+	}
+
+    
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - kek kek

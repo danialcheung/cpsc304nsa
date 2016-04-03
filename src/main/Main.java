@@ -52,15 +52,13 @@ public class Main implements ActionListener
 	 */ 
 	public Main()
 	{
-
-		connect("root","luckey");
+		Login2 login = new Login2();
+		login.setVisible(true);
 		
-        Projection p = new Projection(con);
-		JTable table = p.projectOwnerOfDeviceType("cell phone");
-
-		openTableFrame(table, "project", "device type");
-//		Login2 login = new Login2();
-//		login.setVisible(true);
+		
+//        Projection p = new Projection(con);
+//		JTable table = p.projectOwnerOfDeviceType("cell phone");
+//		openTableFrame(table, "project", "device type");
 
 //		TableWindow t = new TableWindow();
 //		t.setVisible(true);
