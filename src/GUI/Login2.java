@@ -23,52 +23,33 @@ public class Login2 extends JFrame {
         initComponents();
     }
 
-    private void button1ActionPerformed(ActionEvent e) {
+    //this function takes in the username desired relative to each button
+    private void setupLogin(String user){
         String username = textField1.getText();
         String password = String.valueOf(passwordField1.getPassword());
-        if (username.equals("0") && password.equals("password")){
+        if (username.equals(user) && password.equals("password")){
             setVisible(false);
             dispose();
             new MenuFrame(con);
         } else {
             System.out.println("Invalid Username or Password");
         }
+    }
+
+    private void button1ActionPerformed(ActionEvent e) {
+        setupLogin("0");
     }
 
     private void button2ActionPerformed(ActionEvent e){
-        String username = textField1.getText();
-        String password = String.valueOf(passwordField1.getPassword());
-        if (username.equals("1") && password.equals("password")){
-            setVisible(false);
-            dispose();
-            new MenuFrame(con);
-        } else {
-            System.out.println("Invalid Username or Password");
-        }
+        setupLogin("1");
     }
 
     private void button3ActionPerformed(ActionEvent e){
-        String username = textField1.getText();
-        String password = String.valueOf(passwordField1.getPassword());
-        if (username.equals("2") && password.equals("password")){
-            setVisible(false);
-            dispose();
-            new MenuFrame(con);
-        } else {
-            System.out.println("Invalid Username or Password");
-        }
+        setupLogin("2");
     }
 
     private void button4ActionPerformed(ActionEvent e){
-        String username = textField1.getText();
-        String password = String.valueOf(passwordField1.getPassword());
-        if (username.equals("3") && password.equals("password")){
-            setVisible(false);
-            dispose();
-            new MenuFrame(con);
-        } else {
-            System.out.println("Invalid Username or Password");
-        }
+        setupLogin("3");
     }
 
     
