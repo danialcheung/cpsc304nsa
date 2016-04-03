@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JTable;
+
 public class Join extends Query {
 
 	public Join(Connection con) {
 		super(con);
-		joinOwnerWithData("Mark Ruffalo");
 	}
 
 	public void join() {
@@ -21,11 +22,11 @@ public class Join extends Query {
 	}
 	
 	/* join a list of data (data_id) with its owner */
-	public List<List<String>> joinOwnerWithData(String owner) {
-		List<List<String>> table = new ArrayList<List<String>>();
-		table.add(Arrays.asList("owner", "data_id", "date", "suspicious"));
-		
-		String query = "SELECT owner, data_id, date, suspicious FROM device, data WHERE device.device_id = data.device_id;";
+	public JTable joinOwnerWithData() {
+		String[] columnNames = {"owner", "data_id", "date", "suspicious"};
+		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
+
+		String query = "SELECT owner, data_id, date, suspicious FROM device, data WHERE device.device_id = data.device_id ORDER BY owner;";
 		
         ResultSet rs = null;
         Statement statement = null; 
@@ -33,17 +34,28 @@ public class Join extends Query {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-            	table.add(Arrays.asList(
+            	data.add(Arrays.asList(
             			rs.getString("owner"),
-            			String.valueOf(rs.getInt("data_id")),
-            			String.valueOf(rs.getDate("date")),
-            			(rs.getBoolean("suspicious")) ? "true" : "false"));
+            			rs.getInt("data_id"),
+            			rs.getDate("date"),
+            			rs.getBoolean("suspicious")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-		return table;
+        Object[][] dataArray = new Object[data.size()][];
+        for (int i = 0; i < data.size(); i++) {
+            List<Object> row = data.get(i);
+            dataArray[i] = row.toArray(new Object[row.size()]);
+        }
+
+		return new JTable(dataArray, columnNames);
+	}
+	
+	@Override
+	public JTable doQuery(String arg) {
+		return joinOwnerWithData();
 	}
 
 }

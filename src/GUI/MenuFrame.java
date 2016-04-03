@@ -9,11 +9,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
+import queries.Join;
 import queries.Projection;
 
 public class MenuFrame {
 
 	private Connection con;
+	
 	public MenuFrame(Connection con) {
 		this.con = con;
 		initComponents();
@@ -87,6 +89,10 @@ public class MenuFrame {
 	}
 	
 	private void joinAction(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Join j = new Join(con);
+		Object[][] empty = {{"","","",""}};
+		String[] header = {"owner", "data_id", "date", "suspicious"};
+		JTable table = new JTable(empty, header);
+		new TableFrame(table, "join", "", j);
 	}
 }
