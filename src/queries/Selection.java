@@ -13,7 +13,6 @@ import java.util.Stack;
 import javax.swing.JTable;
 
 import GUI.Login2;
-import GUI.TableWindow;
 import main.AttrType;
 import main.Pair;
 import tables.Table;
@@ -48,9 +47,6 @@ public class Selection extends Query {
 			attrNames[i] = table.getAttrs().get(i).getRight();
 		}
 
-		TableWindow tableWindow = new TableWindow();
-		tableWindow.initializeTables(attrNames);
-		tableWindow.setVisible(true);
 	}
 	
 	private String buildQuery(Table table, Stack<Pair<Pair<AttrType, String>, String>> attrVals) {

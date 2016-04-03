@@ -15,6 +15,7 @@ import queries.Join;
 import queries.NestedAggregationWithGroupBy;
 import queries.Projection;
 import queries.Selection;
+import queries.Update;
 
 public class MenuFrame {
 
@@ -84,7 +85,9 @@ public class MenuFrame {
 		return null;
 	}
 	private void updateAction(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Update u = new Update(con);
+		JTable table = u.selectAllData();
+		new UpdateTableFrame(table, "update", "data id", "YYYYMMDD", u);
 	}
 	
 	private void deleteAction(ActionEvent e) {

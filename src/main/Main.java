@@ -9,7 +9,6 @@ import java.io.*;
 import javax.swing.*;
 
 import GUI.Login2;
-import GUI.TableWindow;
 import queries.Aggregation;
 import queries.Deletion;
 import queries.Division;
