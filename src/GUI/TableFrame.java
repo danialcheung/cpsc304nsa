@@ -84,7 +84,9 @@ public class TableFrame {
 		c.weightx = 0;
 		c.weighty = 0;
 		c.anchor = GridBagConstraints.SOUTHWEST;
-		panel.add(text, c);
+		if (inputLabel != "") {
+			panel.add(text, c);
+		}
 
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setSize(600, 400);
