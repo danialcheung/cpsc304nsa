@@ -8,6 +8,7 @@ import java.io.*;
 //for the login window
 import javax.swing.*;
 
+import GUI.Login2;
 import queries.Aggregation;
 import queries.Deletion;
 import queries.Division;
@@ -21,7 +22,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 //for accessing tables in database
-import tables.Device;
+
 
 /*
  * This class implements a graphical login window and a simple text
@@ -29,6 +30,7 @@ import tables.Device;
  */ 
 public class Main implements ActionListener
 {
+
 	// command line reader 
 	private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
@@ -49,7 +51,9 @@ public class Main implements ActionListener
 	 */ 
 	public Main()
 	{
+
 		mainFrame = new JFrame("User Login");
+
 
 		JLabel usernameLabel = new JLabel("Enter username: ");
 		JLabel passwordLabel = new JLabel("Enter password: ");
@@ -72,13 +76,13 @@ public class Main implements ActionListener
 		contentPane.setLayout(gb);
 		contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		// place the username label 
+		// place the username label
 		c.gridwidth = GridBagConstraints.RELATIVE;
 		c.insets = new Insets(10, 10, 5, 0);
 		gb.setConstraints(usernameLabel, c);
 		contentPane.add(usernameLabel);
 
-		// place the text field for the username 
+		// place the text field for the username
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.insets = new Insets(10, 0, 5, 10);
 		gb.setConstraints(usernameField, c);
@@ -90,7 +94,7 @@ public class Main implements ActionListener
 		gb.setConstraints(passwordLabel, c);
 		contentPane.add(passwordLabel);
 
-		// place the password field 
+		// place the password field
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.insets = new Insets(0, 0, 10, 10);
 		gb.setConstraints(passwordField, c);
@@ -108,11 +112,11 @@ public class Main implements ActionListener
 		loginButton.addActionListener(this);
 
 		// anonymous inner class for closing the window
-		mainFrame.addWindowListener(new WindowAdapter() 
+		mainFrame.addWindowListener(new WindowAdapter()
 		{
-			public void windowClosing(WindowEvent e) 
-			{ 
-				System.exit(0); 
+			public void windowClosing(WindowEvent e)
+			{
+				System.exit(0);
 			}
 		});
 
@@ -125,7 +129,10 @@ public class Main implements ActionListener
 		mainFrame.setLocation( (d.width - r.width)/2, (d.height - r.height)/2 );
 
 		// make the window visible
-		mainFrame.setVisible(true);
+		//mainFrame.setVisible(true);
+
+		Login2 login = new Login2();
+		login.setVisible(true);
 
 		// place the cursor in the text field for the username
 		usernameField.requestFocus();
@@ -138,6 +145,9 @@ public class Main implements ActionListener
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
+
+
 	}
 
 

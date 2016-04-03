@@ -1,6 +1,5 @@
 package queries;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +11,6 @@ import java.util.Stack;
 
 import main.AttrType;
 import main.Pair;
-import tables.Device;
 import tables.Table;
 
 public class Selection extends Query {
@@ -66,7 +64,8 @@ public class Selection extends Query {
 				+ "AND location.country LIKE \"" + country + "\";";
 		
         ResultSet rs = null;
-        Statement statement = null; 
+        Statement statement = null;
+
         try {
             statement = con.createStatement();
             rs = statement.executeQuery(query);
