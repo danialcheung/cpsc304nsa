@@ -78,8 +78,6 @@ public class Deletion extends Query {
 
 		return new JTable(dataArray, columnNames);
 	}
-
-
 	
 	@Override
 	public JTable doQuery(String arg) {

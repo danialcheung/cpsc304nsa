@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import queries.Aggregation;
 import queries.Deletion;
 import queries.Join;
+import queries.NestedAggregationWithGroupBy;
 import queries.Projection;
 
 public class MenuFrame {
@@ -50,6 +51,12 @@ public class MenuFrame {
 		nestedAggrButton.setText("Country with min/max average transaction");
 		nestedAggrButton.addActionListener(e -> nestedAggrAction(e));
 		frame.add(nestedAggrButton);
+		
+		JButton divisionButton = new JButton();
+		// TODO
+		divisionButton.setText("Some division query ???");
+		divisionButton.addActionListener(e -> divisionAggrAction(e));
+		frame.add(divisionButton);
 
 		JButton deleteButton = new JButton();
 		deleteButton.setText("Stop tracking a device");
@@ -66,6 +73,10 @@ public class MenuFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
+	private Object divisionAggrAction(ActionEvent e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	private void updateAction(ActionEvent e) {
 		// TODO Auto-generated method stub
 	}
@@ -77,7 +88,11 @@ public class MenuFrame {
 	}
 	
 	private void nestedAggrAction(ActionEvent e) {
-		// TODO Auto-generated method stub
+		NestedAggregationWithGroupBy n = new NestedAggregationWithGroupBy(con);
+		Object[][] empty = {{"",""}};
+		String[] header = {"country", "max_avg_suspicious_amount"};
+		JTable table = new JTable(empty, header);
+		new TableFrame(table, "count", "min/max", n); // TODO whip up a custom form with a min/max selector instead of a text input field
 	}
 	private void aggrAction(ActionEvent e) {
 		Aggregation a = new Aggregation(con);
