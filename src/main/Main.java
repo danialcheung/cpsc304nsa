@@ -9,6 +9,7 @@ import java.io.*;
 import javax.swing.*;
 
 import GUI.Login2;
+import GUI.TableWindow;
 import queries.Aggregation;
 import queries.Deletion;
 import queries.Division;
@@ -133,6 +134,7 @@ public class Main implements ActionListener
 
 		Login2 login = new Login2();
 		login.setVisible(true);
+
 
 		// place the cursor in the text field for the username
 		//usernameField.requestFocus();
@@ -364,7 +366,7 @@ public class Main implements ActionListener
 				case 9:  
 				default:	quit = true;
 				}
-				
+
 				if (!quit) {
 					System.out.println("\nQuery complete; hit enter to continue.");
 					in.readLine();

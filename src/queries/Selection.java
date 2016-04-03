@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import GUI.Login2;
 import GUI.TableWindow;
 import main.AttrType;
 import main.Pair;
@@ -41,15 +42,13 @@ public class Selection extends Query {
 		int ATTR_SIZE = table.getAttrs().size();
 		String[] attrNames = new String[ATTR_SIZE];
 
-		for (int i = 0; i < ATTR_SIZE-1; i++){
+		for (int i = 0; i < ATTR_SIZE; i++){
 			attrNames[i] = table.getAttrs().get(i).getRight();
 		}
 
 		TableWindow tableWindow = new TableWindow();
 		tableWindow.initializeTables(attrNames);
 		tableWindow.setVisible(true);
-
-
 	}
 	
 	private String buildQuery(Table table, Stack<Pair<Pair<AttrType, String>, String>> attrVals) {
