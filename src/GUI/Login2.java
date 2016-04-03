@@ -31,7 +31,7 @@ public class Login2 extends JFrame {
         if (username.equals(user) && password.equals("password")){
             setVisible(false);
             dispose();
-            new MenuFrame(con);
+            new MenuFrame(con, username.equals("0"));
         } else {
             System.out.println("Invalid Username or Password");
         }

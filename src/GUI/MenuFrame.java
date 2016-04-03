@@ -21,11 +21,11 @@ public class MenuFrame {
 
 	private Connection con;
 	
-	public MenuFrame(Connection con) {
+	public MenuFrame(Connection con, boolean isAdmin) {
 		this.con = con;
-		initComponents();
+		initComponents(isAdmin);
 	}
-	private void initComponents() {
+	private void initComponents(boolean isAdmin) {
 		JFrame frame = new JFrame("Menu");
 		frame.setLayout(new FlowLayout());
 		
@@ -63,23 +63,31 @@ public class MenuFrame {
 		JButton deleteButton = new JButton();
 		deleteButton.setText("Stop tracking a device");
 		deleteButton.addActionListener(e -> deleteAction(e));
-		frame.add(deleteButton);
+		if (isAdmin) {
+			frame.add(deleteButton);
+		}
 		
 		JButton deleteButton2 = new JButton();
 		deleteButton2.setText("Nuke data");
 		deleteButton2.addActionListener(e -> deleteAction2(e));
-		frame.add(deleteButton2);
-
+		if (isAdmin) {
+			frame.add(deleteButton2);
+		}
+		
 		JButton updateButton = new JButton();
 		updateButton.setText("Falsify evidence");
 		updateButton.addActionListener(e -> updateAction(e));
-		frame.add(updateButton);
+		if (isAdmin) {
+			frame.add(updateButton);		
+		}
+
 		
 		frame.setSize(600, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
+	
 	private Object divisionAggrAction(ActionEvent e) {
 		// TODO Auto-generated method stub
 		return null;
