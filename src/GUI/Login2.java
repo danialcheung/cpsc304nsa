@@ -19,8 +19,9 @@ public class Login2 extends JFrame {
 	
 	private Connection con;
 
-    public Login2() {
+    public Login2(Connection con) {
         initComponents();
+        this.con = con;
     }
 
     //this function takes in the username desired relative to each button

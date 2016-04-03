@@ -29,7 +29,7 @@ public class Login1 extends JFrame {
         if (connect(username,password)){
             setVisible(false);
             dispose();
-            new Login2().setVisible(true);
+            new Login2(con).setVisible(true);
         } else {
             System.out.println("Invalid Password");
         }
