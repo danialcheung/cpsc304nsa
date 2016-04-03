@@ -11,23 +11,24 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import queries.Query;
+
 public class TableFrame {
 	
-	private JTable table;
 	private String buttonLabel;
 	private String inputLabel;
-	JFrame frame;
+	private Query query;
+	private JFrame frame;
 	
-	public TableFrame(JTable table, String buttonLabel, String inputLabel) {
-		this.table = table;
+	public TableFrame(JTable table, String buttonLabel, String inputLabel, Query query) {
 		this.buttonLabel = buttonLabel;
 		this.inputLabel = inputLabel;
-		init();
+		this.query = query;
+		this.frame = new JFrame();
+		init(table);
 	}
 	
-	public void init() {
-		JFrame frame = new JFrame("Query");
-		this.frame = frame;
+	public void init(JTable table) {
 		frame.setLayout(new BorderLayout());
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -49,6 +50,7 @@ public class TableFrame {
 
 		JButton actionButton = new JButton();
 		actionButton.setText(buttonLabel);
+		actionButton.addActionListener(e -> actionAction(e));
 		c.fill = GridBagConstraints.NONE;
 		c.gridx = 2;
 		c.gridy = 5;
@@ -88,6 +90,10 @@ public class TableFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+	}
+
+	private void actionAction(ActionEvent e) {
+		// TODO Auto-generated method stub
 	}
 
 	private void closeAction(ActionEvent e) {

@@ -80,8 +80,10 @@ public class MenuFrame {
 	
 	private void projectAction(ActionEvent e) {
 		Projection p = new Projection(con);
-		JTable table = p.projectOwnerOfDeviceType("cell phone");
-		new TableFrame(table, "project", "device type");
+		Object[][] empty = {{"",""}};
+		String[] header = {"device_type", "owner"};
+		JTable table = new JTable(empty, header);
+		new TableFrame(table, "project", "device type", p);
 	}
 	
 	private void joinAction(ActionEvent e) {
