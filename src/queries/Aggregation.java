@@ -55,13 +55,18 @@ public class Aggregation extends Query {
 		
         ResultSet rs = null;
         Statement statement = null; 
+        boolean emptyrs = false;
         try {           
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
+            	emptyrs = true;
             	data.add(Arrays.asList(
             		rs.getString("country"),
             		rs.getInt("COUNT(data_id)")));
+            }
+            if (!rs.isBeforeFirst() && !emptyrs) {
+            	data.add(Arrays.asList(country, 0));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,7 +78,7 @@ public class Aggregation extends Query {
             List<Object> row = data.get(i);
             dataArray[i] = row.toArray(new Object[row.size()]);
         }
-
+        
 		return new JTable(dataArray, columnNames);
 		}
 	
