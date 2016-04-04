@@ -11,4 +11,4 @@ potenital day-to-day usages.
 ###Credits
 A project by **Graham Bing, Danial Cheung, Elaine Feng, and Alena Safina**.
 
-Plugins used: **JFormBuilder**
+Plugins used: **JFormDesigner**
