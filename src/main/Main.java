@@ -8,6 +8,7 @@ import java.io.*;
 //for the login window
 import javax.swing.*;
 
+import GUI.ErrorFrame2;
 import GUI.Login1;
 import GUI.Login2;
 import queries.Aggregation;
@@ -55,7 +56,9 @@ public class Main implements ActionListener
 		Login1 login = new Login1();
 		login.setVisible(true);
 		
-
+		ErrorFrame2 error = new ErrorFrame2(login);
+		error.setVisible(true);
+		
 		try 
 		{
 			// Load the MySQL driver
