@@ -20,6 +20,7 @@ import queries.Update;
 public class MenuFrame {
 
 	private Connection con;
+	private JFrame frame;
 	
 	public MenuFrame(Connection con, int userVal) {
 		this.con = con;
@@ -31,7 +32,7 @@ public class MenuFrame {
 		boolean isCIA = userVal == 1;
 		boolean isFBI = userVal == 2;
 
-		JFrame frame = new JFrame("Menu");
+		frame = new JFrame("Menu");
 		frame.setLayout(new FlowLayout());
 		
 		JButton selectButton = new JButton();
@@ -89,6 +90,11 @@ public class MenuFrame {
 		if (isAdmin) {
 			frame.add(updateButton);		
 		}
+
+		JButton logoutButton = new JButton();
+		logoutButton.setText("Logout");
+		logoutButton.addActionListener(e -> logoutAction(e));
+		frame.add(logoutButton);
 
 		
 		frame.setSize(600, 400);
@@ -155,5 +161,10 @@ public class MenuFrame {
 		String[] header = {"owner", "data_id", "date", "suspicious"};
 		JTable table = new JTable(empty, header);
 		new TableFrame(table, "join", "", j);
+	}
+
+	private void logoutAction(ActionEvent e){
+		this.frame.dispose();
+		new Login2(con).setVisible(true);
 	}
 }
