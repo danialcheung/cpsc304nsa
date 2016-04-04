@@ -17,6 +17,7 @@ import com.jgoodies.forms.layout.*;
  * @author Elaine Feng
  */
 public class ErrorFrame extends JDialog {
+	private UpdateTableFrame owner;
 	public ErrorFrame(Frame owner, String msg) {
 		super(owner);
 		initComponents(msg);
@@ -28,6 +29,7 @@ public class ErrorFrame extends JDialog {
 	}
 	
 	public ErrorFrame(UpdateTableFrame owner, String msg) {
+		this.owner = owner;
 		initComponents(msg);
 	}
 
