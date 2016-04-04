@@ -30,6 +30,17 @@ CREATE TABLE Device (
   FOREIGN KEY (lat, lng) REFERENCES Location(lat, lng) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE Suspect (device_id INT UNSIGNED NOT NULL ,
+  owner VARCHAR(20) NULL ,
+  model VARCHAR(20) NULL ,
+  lat FLOAT NULL ,
+  lng FLOAT NULL ,
+  device_type VARCHAR(20),
+  PRIMARY KEY (device_id),
+  FOREIGN KEY (lat, lng) REFERENCES Location(lat, lng) ON DELETE CASCADE ON UPDATE CASCADE
+);
+	
+
 CREATE TABLE Data (
   data_id    INT UNSIGNED     NOT NULL,
   date       DATETIME NULL,
@@ -160,15 +171,13 @@ INSERT INTO Location (lat, lng, country) VALUES (-77.299998, 148.772236, 'Cuba')
 INSERT INTO Location (lat, lng, country) VALUES (0.5616872, 117.57850121, 'Costa Rica');
 INSERT INTO Location (lat, lng, country) VALUES (-56.31474676, 88.78286033, 'Mongolia');
 
-
 INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (2231, 'Jelena Djovik', 'Alcatel Onetouch S5', 78.274398, -19.775136,'laptop');
-INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (6261, 'Omir Jinari', 'Alienware X51', 51.165691, 10.451526, 'desktop');
 INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (8823, 'Mark Ruffalo', 'iPad 2', 0.5616872, 117.57850121, 'tablet');
 INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (1404, 'Jia Liang', 'Samsung Galaxy S5', 55.378051, -3.435973, 'cell phone');
-INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (7723, 'Leonid Pavel', 'Motorola Moto G', 78.274398, -19.775136, 'cell phone');
-INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (1905, 'John W. Stewart', 'iPad', 37.09024, -95.712891, 'tablet');
 INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (3007, 'Polina Splitnikova', 'Nokia 1200', 7.773322, 128.304261, 'cell phone');
-
+INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (1905, 'John W. Stewart', 'iPad', 37.09024, -95.712891, 'tablet');
+INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (6261, 'Omir Jinari', 'Alienware X51', 51.165691, 10.451526, 'desktop');
+INSERT INTO Device (device_id, owner, model, lat, lng, device_type) VALUES (7723, 'Leonid Pavel', 'Motorola Moto G', 78.274398, -19.775136, 'cell phone');
 
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (2212629, '2004-05-12', false, 37.09024, -95.712891, 2231);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7712323, '2016-02-22', false, 51.165691, 10.451526, 6261);
@@ -177,20 +186,17 @@ INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (223402
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7563947, '2014-01-01', false, 55.378051, -3.435973, 7723);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (8923905, '2015-03-31', true, -46.274398, 18.775136, 1905);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0918243, '2003-07-11', false, 78.274398, -19.775136, 3007);
-
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0247094, '2014-03-25', false, 7.773322, 128.304261, 8823);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (4251462, '2016-12-25', true, -77.299998, 148.772236, 6261);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (3956189, '2011-08-11', false, 0.5616872, 117.57850121, 8823);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (8320176, '1998-02-11', false, -56.31474676, 88.78286033, 1404); 
-INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (9184461, '2013-02-02', true, 37.09024, -95.712891, 3007);
+INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (9184461, '2013-02-02', false, 37.09024, -95.712891, 3007); 
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (3298757, '2011-08-11', false, 56.130366, -106.346771, 1905);
-
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (5446015, '1991-06-27', false, -25.274398, 133.775136, 2231);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0249428, '1992-05-29', false, 55.378051, -3.435973, 6261);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (6053689, '1993-07-06', false, -46.274398, 18.775136, 8823);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7532096, '1993-07-23', true, 51.165691, 10.451526, 1404);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (1824705, '1994-03-11', false, 78.274398, -19.775136, 7723);
-
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (7479524, '1996-10-05', false, 7.773322, 128.304261, 2231);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (6461270, '2004-02-07', false, -77.299998, 148.772236, 6261);
 INSERT INTO Data (data_id, date, suspicious, lat, lng, device_id) VALUES (0502723, '2005-03-28', false, 0.5616872, 117.57850121, 8823);
@@ -275,3 +281,35 @@ INSERT INTO Police (user_id, password, state) VALUES (30253, 'CptnAmurica88', 'W
 INSERT INTO Police (user_id, password, state) VALUES (37040, 'SuperSaying9000', 'CA');
 INSERT INTO Police (user_id, password, state) VALUES (32944, 'IncredaGood44', 'OH');
 
+
+CREATE TABLE Suspect AS
+SELECT device.device_id, owner, model, device.lat, device.lng, device_type
+FROM Device, Data
+WHERE data.device_id = device.device_id AND data.suspicious = true;
+
+/*SELECT owner
+FROM device
+WHERE NOT EXISTS 
+    (SELECT data.device_id AS suspect_id
+    FROM device, data
+    WHERE data.suspicious = true AND data.device_id = device.device_id AND NOT EXISTS
+		(SELECT *
+		FROM commlog
+		WHERE commlog.data_id = data.data_id AND reciever = data.device_id AND sender = suspect_id));*/
+
+Select Distinct Owner
+from Device, Data, CommLog, 
+
+(Select distinct Device.device_id 
+From Data, Device
+where Data.device_id = Device.device_id AND Data.suspicious = 1) as suspects
+
+where Device.device_id = Data.device_id
+and
+Data.data_id = Commlog.data_id
+and 
+Commlog.sender = suspects.device_id
+and
+Device.device_id = Commlog.reciever
+and 
+data.suspicious = 0;

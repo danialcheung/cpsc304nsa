@@ -11,6 +11,7 @@ import javax.swing.JTable;
 
 import queries.Aggregation;
 import queries.Deletion;
+import queries.Division;
 import queries.Join;
 import queries.NestedAggregationWithGroupBy;
 import queries.Projection;
@@ -20,13 +21,19 @@ import queries.Update;
 public class MenuFrame {
 
 	private Connection con;
+	private JFrame frame;
 	
-	public MenuFrame(Connection con, boolean isAdmin) {
+	public MenuFrame(Connection con, int userVal) {
 		this.con = con;
-		initComponents(isAdmin);
+		initComponents(userVal);
 	}
-	private void initComponents(boolean isAdmin) {
-		JFrame frame = new JFrame("Menu");
+	private void initComponents(int userVal) {
+
+		boolean isAdmin = userVal == 0;
+		boolean isCIA = userVal == 1;
+		boolean isFBI = userVal == 2;
+
+		frame = new JFrame("Menu");
 		frame.setLayout(new FlowLayout());
 		
 		JButton selectButton = new JButton();
@@ -47,17 +54,20 @@ public class MenuFrame {
 		JButton aggrButton = new JButton();
 		aggrButton.setText("Suspicious data per country");
 		aggrButton.addActionListener(e -> aggrAction(e));
-		frame.add(aggrButton);
+		if(isAdmin || isCIA || isFBI) {
+			frame.add(aggrButton);
+		}
 
 		JButton nestedAggrButton = new JButton();
 		nestedAggrButton.setText("Country with min/max average transaction");
 		nestedAggrButton.addActionListener(e -> nestedAggrAction(e));
-		frame.add(nestedAggrButton);
+		if (isAdmin || isCIA) {
+			frame.add(nestedAggrButton);
+		}
 		
 		JButton divisionButton = new JButton();
-		// TODO this whole thing
-		divisionButton.setText("Some division query ???");
-		divisionButton.addActionListener(e -> divisionAggrAction(e));
+		divisionButton.setText("New potential persons of interest");
+		divisionButton.addActionListener(e -> divisionAction(e));
 		frame.add(divisionButton);
 
 		JButton deleteButton = new JButton();
@@ -81,6 +91,11 @@ public class MenuFrame {
 			frame.add(updateButton);		
 		}
 
+		JButton logoutButton = new JButton();
+		logoutButton.setText("Logout");
+		logoutButton.addActionListener(e -> logoutAction(e));
+		frame.add(logoutButton);
+
 		
 		frame.setSize(600, 400);
 		frame.setLocationRelativeTo(null);
@@ -88,9 +103,12 @@ public class MenuFrame {
 		frame.setVisible(true);
 	}
 	
-	private Object divisionAggrAction(ActionEvent e) {
-		// TODO Auto-generated method stub
-		return null;
+	private void divisionAction(ActionEvent e) {
+		Division d = new Division(con);
+		Object[][] empty = {{""}};
+		String[] header = {"person_of_interest"};
+		JTable table = new JTable(empty, header);
+		new TableFrame(table, "find", "", d);
 	}
 	private void updateAction(ActionEvent e) {
 		Update u = new Update(con);
@@ -146,5 +164,10 @@ public class MenuFrame {
 		String[] header = {"owner", "data_id", "date", "suspicious"};
 		JTable table = new JTable(empty, header);
 		new TableFrame(table, "join", "", j);
+	}
+
+	private void logoutAction(ActionEvent e){
+		this.frame.dispose();
+		new Login2(con).setVisible(true);
 	}
 }
