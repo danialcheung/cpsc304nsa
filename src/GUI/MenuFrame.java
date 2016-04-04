@@ -11,6 +11,7 @@ import javax.swing.JTable;
 
 import queries.Aggregation;
 import queries.Deletion;
+import queries.Division;
 import queries.Join;
 import queries.NestedAggregationWithGroupBy;
 import queries.Projection;
@@ -65,9 +66,8 @@ public class MenuFrame {
 		}
 		
 		JButton divisionButton = new JButton();
-		// TODO this whole thing
-		divisionButton.setText("Some division query ???");
-		divisionButton.addActionListener(e -> divisionAggrAction(e));
+		divisionButton.setText("New potential persons of interest");
+		divisionButton.addActionListener(e -> divisionAction(e));
 		frame.add(divisionButton);
 
 		JButton deleteButton = new JButton();
@@ -103,9 +103,12 @@ public class MenuFrame {
 		frame.setVisible(true);
 	}
 	
-	private Object divisionAggrAction(ActionEvent e) {
-		// TODO Auto-generated method stub
-		return null;
+	private void divisionAction(ActionEvent e) {
+		Division d = new Division(con);
+		Object[][] empty = {{""}};
+		String[] header = {"person_of_interest"};
+		JTable table = new JTable(empty, header);
+		new TableFrame(table, "find", "", d);
 	}
 	private void updateAction(ActionEvent e) {
 		Update u = new Update(con);

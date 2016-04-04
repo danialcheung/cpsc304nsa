@@ -1,9 +1,14 @@
 package queries;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.JTable;
 
 import main.AttrType;
 import main.Pair;
@@ -65,5 +70,54 @@ public class Division extends Query {
 //		WHERE d2.y = d1.y
 //		AND d2.attr = divisor.attr));		
 		return q;
+	}
+	
+	private JTable potentialNewPersonsOfInterest() {
+		String[] columnNames = {"person_of_interest"};
+		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
+
+		String query = 
+				"SELECT DISTINCT owner\n" +
+				"FROM device, data, commlog, (\n" +
+				"	SELECT DISTINCT device.device_id\n" +
+				"	FROM data, device\n" +
+				"	WHERE Data.device_id = Device.device_id AND Data.suspicious = 1\n" +
+				"	) AS suspects\n" +
+				"WHERE device.device_id = data.device_id\n" +
+				"AND\n" +
+				"Data.data_id = Commlog.data_id\n" +
+				"AND \n" +
+				"Commlog.sender = suspects.device_id\n" +
+				"AND\n" +
+				"Device.device_id = Commlog.reciever\n" +
+				"AND \n" +
+				"data.suspicious = 0;\n";
+		
+		ResultSet rs = null;
+		Statement statement = null; 
+		try {           
+		    statement = con.createStatement();
+		    rs = statement.executeQuery(query);
+		    while (rs.next()) {
+		    	data.add(Arrays.asList(
+		    			rs.getString("owner")));
+		    }
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
+		
+		Object[][] dataArray = new Object[data.size()][];
+		for (int i = 0; i < data.size(); i++) {
+		    List<Object> row = data.get(i);
+		    dataArray[i] = row.toArray(new Object[row.size()]);
+		}
+
+		return new JTable(dataArray, columnNames);
+	}
+	
+	
+	@Override
+	public JTable doQuery(String arg) {
+		return potentialNewPersonsOfInterest();
 	}
 }
