@@ -89,7 +89,7 @@ public class TableFrame {
 		}
 
 		frame.add(panel, BorderLayout.CENTER);
-		frame.setSize(600, 400);
+		frame.setSize(800, 800);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
