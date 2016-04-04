@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JTable;
+
 public class Update extends Query {
 
 	public Update(Connection con) {
@@ -28,6 +30,11 @@ public class Update extends Query {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+	}
+	
+	public JTable doUpdate(String data_id, String newDate) {
+		changeDateOfData(Integer.valueOf(data_id), Integer.valueOf(newDate));
+		return selectAllData();
 	}
 
 }

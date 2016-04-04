@@ -8,8 +8,8 @@ import java.io.*;
 //for the login window
 import javax.swing.*;
 
+import GUI.Login1;
 import GUI.Login2;
-import GUI.TableWindow;
 import queries.Aggregation;
 import queries.Deletion;
 import queries.Division;
@@ -52,7 +52,7 @@ public class Main implements ActionListener
 	 */ 
 	public Main()
 	{
-		Login2 login = new Login2();
+		Login1 login = new Login1();
 		login.setVisible(true);
 		
 

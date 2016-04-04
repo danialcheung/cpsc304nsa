@@ -41,25 +41,32 @@ public class Aggregation extends Query {
 		runQuery(query, Arrays.asList(new Pair<AttrType, String>(aggrAttr.getLeft(), aggrType + "(" + aggrAttr.getRight() + ")")));
 	}
 	
-	public JTable countSuspiciousDataByCountry() {
+	/* get count of suspicious data in a given country */
+	public JTable countSuspiciousDataByCountry(String country) {
 		String[] columnNames = {"country", "suspicious_data_count"};
 		ArrayList<List<Object>> data = new ArrayList<List<Object>>();
 
 		String query = 
 				"SELECT country, COUNT(data_id)\n"
 				+ "FROM data, location\n"
-				+ "WHERE data.lat = location.lat AND data.lng = location.lng AND suspicious = 1\n"
+				+ "WHERE data.lat = location.lat AND data.lng = location.lng AND suspicious = true "
+				+ "AND country LIKE \"" + country + "\"\n"
 				+ "GROUP BY country;";
 		
         ResultSet rs = null;
         Statement statement = null; 
+        boolean emptyrs = false;
         try {           
             statement = con.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
+            	emptyrs = true;
             	data.add(Arrays.asList(
             		rs.getString("country"),
             		rs.getInt("COUNT(data_id)")));
+            }
+            if (!rs.isBeforeFirst() && !emptyrs) {
+            	data.add(Arrays.asList(country, 0));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,14 +78,14 @@ public class Aggregation extends Query {
             List<Object> row = data.get(i);
             dataArray[i] = row.toArray(new Object[row.size()]);
         }
-
+        
 		return new JTable(dataArray, columnNames);
 		}
 	
 	
 	@Override
 	public JTable doQuery(String arg) {
-		return countSuspiciousDataByCountry();
+		return countSuspiciousDataByCountry(arg);
 	}
 
 }

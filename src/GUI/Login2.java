@@ -19,39 +19,39 @@ public class Login2 extends JFrame {
 	
 	private Connection con;
 
-    public Login2() {
+    public Login2(Connection con) {
         initComponents();
+        this.con = con;
     }
 
-    private void button1ActionPerformed(ActionEvent e) {
+    //this function takes in the username desired relative to each button
+    private void setupLogin(String user){
         String username = textField1.getText();
         String password = String.valueOf(passwordField1.getPassword());
-        if (connect(username,password)){
+        if (username.equals(user) && password.equals("password")){
             setVisible(false);
             dispose();
-            new MenuFrame(con);
+            new MenuFrame(con, username.equals("0"));
         } else {
-            System.out.println("Invalid Password");
+            System.out.println("Invalid Username or Password");
         }
     }
 
-	private boolean connect(String username, String password)
-	{
-		String connectURL = "jdbc:mysql://localhost:3306/nsa?useSSL=false";
+    private void button1ActionPerformed(ActionEvent e) {
+        setupLogin("0");
+    }
 
-		try 
-		{
-			con = DriverManager.getConnection(connectURL,username,password);
+    private void button2ActionPerformed(ActionEvent e){
+        setupLogin("1");
+    }
 
-			System.out.println("\nConnected to MySQL!");
-			return true;
-		}
-		catch (SQLException ex)
-		{
-			System.out.println("Message: " + ex.getMessage());
-			return false;
-		}
-	}
+    private void button3ActionPerformed(ActionEvent e){
+        setupLogin("2");
+    }
+
+    private void button4ActionPerformed(ActionEvent e){
+        setupLogin("3");
+    }
 
     
     private void initComponents() {
@@ -108,18 +108,21 @@ public class Login2 extends JFrame {
 
         //---- button2 ----
         button2.setText("CIA");
+        button2.addActionListener(e -> button2ActionPerformed(e));
         contentPane.add(button2, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 0), 0, 0));
 
         //---- button3 ----
         button3.setText("FBI");
+        button3.addActionListener(e -> button3ActionPerformed(e));
         contentPane.add(button3, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 0), 0, 0));
 
         //---- button4 ----
         button4.setText("Police");
+        button4.addActionListener(e -> button4ActionPerformed(e));
         contentPane.add(button4, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 0, 0), 0, 0));

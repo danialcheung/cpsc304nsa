@@ -15,16 +15,17 @@ import queries.Join;
 import queries.NestedAggregationWithGroupBy;
 import queries.Projection;
 import queries.Selection;
+import queries.Update;
 
 public class MenuFrame {
 
 	private Connection con;
 	
-	public MenuFrame(Connection con) {
+	public MenuFrame(Connection con, boolean isAdmin) {
 		this.con = con;
-		initComponents();
+		initComponents(isAdmin);
 	}
-	private void initComponents() {
+	private void initComponents(boolean isAdmin) {
 		JFrame frame = new JFrame("Menu");
 		frame.setLayout(new FlowLayout());
 		
@@ -62,29 +63,39 @@ public class MenuFrame {
 		JButton deleteButton = new JButton();
 		deleteButton.setText("Stop tracking a device");
 		deleteButton.addActionListener(e -> deleteAction(e));
-		frame.add(deleteButton);
+		if (isAdmin) {
+			frame.add(deleteButton);
+		}
 		
 		JButton deleteButton2 = new JButton();
 		deleteButton2.setText("Nuke data");
 		deleteButton2.addActionListener(e -> deleteAction2(e));
-		frame.add(deleteButton2);
-
+		if (isAdmin) {
+			frame.add(deleteButton2);
+		}
+		
 		JButton updateButton = new JButton();
 		updateButton.setText("Falsify evidence");
 		updateButton.addActionListener(e -> updateAction(e));
-		frame.add(updateButton);
+		if (isAdmin) {
+			frame.add(updateButton);		
+		}
+
 		
 		frame.setSize(600, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
+	
 	private Object divisionAggrAction(ActionEvent e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	private void updateAction(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Update u = new Update(con);
+		JTable table = u.selectAllData();
+		new UpdateTableFrame(table, "update", "data id", "YYYYMMDD", u);
 	}
 	
 	private void deleteAction(ActionEvent e) {
@@ -111,7 +122,7 @@ public class MenuFrame {
 		Object[][] empty = {{"",""}};
 		String[] header = {"country", "suspicious_data_count"};
 		JTable table = new JTable(empty, header);
-		new TableFrame(table, "count", "", a);
+		new TableFrame(table, "count", "country", a);
 	}
 	private void selectAction(ActionEvent e) {
 		Selection s = new Selection(con);
