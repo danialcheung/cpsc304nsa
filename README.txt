@@ -1,2 +1,0 @@
-LOOOOOOL
->:( not funny
