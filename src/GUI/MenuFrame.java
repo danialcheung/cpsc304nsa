@@ -21,11 +21,16 @@ public class MenuFrame {
 
 	private Connection con;
 	
-	public MenuFrame(Connection con, boolean isAdmin) {
+	public MenuFrame(Connection con, int userVal) {
 		this.con = con;
-		initComponents(isAdmin);
+		initComponents(userVal);
 	}
-	private void initComponents(boolean isAdmin) {
+	private void initComponents(int userVal) {
+
+		boolean isAdmin = userVal == 0;
+		boolean isCIA = userVal == 1;
+		boolean isFBI = userVal == 2;
+
 		JFrame frame = new JFrame("Menu");
 		frame.setLayout(new FlowLayout());
 		
@@ -47,12 +52,16 @@ public class MenuFrame {
 		JButton aggrButton = new JButton();
 		aggrButton.setText("Suspicious data per country");
 		aggrButton.addActionListener(e -> aggrAction(e));
-		frame.add(aggrButton);
+		if(isAdmin || isCIA || isFBI) {
+			frame.add(aggrButton);
+		}
 
 		JButton nestedAggrButton = new JButton();
 		nestedAggrButton.setText("Country with min/max average transaction");
 		nestedAggrButton.addActionListener(e -> nestedAggrAction(e));
-		frame.add(nestedAggrButton);
+		if (isAdmin || isCIA) {
+			frame.add(nestedAggrButton);
+		}
 		
 		JButton divisionButton = new JButton();
 		// TODO this whole thing
