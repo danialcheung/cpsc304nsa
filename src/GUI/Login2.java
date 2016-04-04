@@ -34,6 +34,8 @@ public class Login2 extends JFrame {
             new MenuFrame(con, username.equals("0"));
         } else {
             System.out.println("Invalid Username or Password");
+            ErrorFrame error = new ErrorFrame(this, "Invalid Username or Password");
+            error.setVisible(true);
         }
     }
 
