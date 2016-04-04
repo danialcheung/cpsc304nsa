@@ -8,7 +8,7 @@ and should **not**, by any means, **be taken seriously**.
 This is a Database Project that simulates a surveillance organization's
 potenital day-to-day usages.
 
-###Credits
+##Credits
 A project by **Graham Bing, Danial Cheung, Elaine Feng, and Alena Safina**.
 
 Plugins used: **JFormDesigner**
