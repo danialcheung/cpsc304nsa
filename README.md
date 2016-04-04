@@ -82,6 +82,6 @@ If you know the `model` of a device, you know its `device_type`.
 
 
 ##Credits
-A project by **Graham Bing, Danial Cheung, Elaine Feng, and Alena Safina**.
+A project by **Graham Bing, Danial Cheung, Elaine Feng,** and **Alena Safina**.
 
 Plugins used: **JFormDesigner**
