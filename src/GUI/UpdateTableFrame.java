@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 import queries.Update;
 
-public class UpdateTableFrame {
+public class UpdateTableFrame extends JFrame {
 	
 	private String buttonLabel;
 	private String inputLabel1;
@@ -104,7 +104,7 @@ public class UpdateTableFrame {
 
 	private void actionAction(ActionEvent e) {
 		JTable table;
-		table = u.doUpdate(text1.getText(), text2.getText());
+		table = u.doUpdate(text1.getText(), text2.getText(), this);
 		// note: this is a terrible way of updating the JTable but idk lol
 		frame.dispose();
 		frame = new JFrame();

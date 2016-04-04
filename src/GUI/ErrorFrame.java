@@ -26,6 +26,10 @@ public class ErrorFrame extends JDialog {
 		super(owner);
 		initComponents(msg);
 	}
+	
+	public ErrorFrame(UpdateTableFrame owner, String msg) {
+		initComponents(msg);
+	}
 
 	private void initComponents(String msg) {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -66,6 +70,12 @@ public class ErrorFrame extends JDialog {
 
 				//---- okButton ----
 				okButton.setText("OK");
+				okButton.addActionListener(new ActionListener() {
+				      @Override
+				      public void actionPerformed(ActionEvent e) {
+				        dispose();
+				      }
+				    });
 				buttonBar.add(okButton, CC.xy(2, 1));
 			}
 			dialogPane.add(buttonBar, BorderLayout.SOUTH);
