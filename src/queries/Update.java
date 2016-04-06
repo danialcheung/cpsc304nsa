@@ -25,53 +25,17 @@ public class Update extends Query {
 	}
 	
 	/* mark data as suspicious */
-	public void changeDateOfData(Integer data_id, Integer date, UpdateTableFrame frame) {
+	public void changeDateOfData(Integer data_id, Integer date) throws SQLException {
 //		date is formatted as YYYYMMDD
 		String update = "UPDATE data SET date = " + date + " WHERE data_id = " + data_id + ";";
 		
         Statement statement = null; 
-        try {  
-            statement = con.createStatement();
-            statement.executeUpdate(update); 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            ErrorFrame error = new ErrorFrame(frame, "Invalid Date");
-            error.setVisible(true);
-        } 
+        statement = con.createStatement();
+        statement.executeUpdate(update); 
 	}
 	
-	public static boolean isInteger(String s) {
-	    return isInteger(s,10);
-	}
-
-	public static boolean isInteger(String s, int radix) {
-	    if(s.isEmpty()) return false;
-	    for(int i = 0; i < s.length(); i++) {
-	        if(i == 0 && s.charAt(i) == '-') {
-	            if(s.length() == 1) return false;
-	            else continue;
-	        }
-	        if(Character.digit(s.charAt(i),radix) < 0) return false;
-	    }
-	    return true;
-	}
-	
-	final static String DATE_FORMAT = "YYYYMMDD";
-
-	public static boolean isDateValid(String date) 
-	{
-	        try {
-	            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
-	            df.setLenient(false);
-	            df.parse(date);
-	            return true;
-	        } catch (ParseException e) {
-	            return false;
-	        }
-	}
-	
-	public JTable doUpdate(String data_id, String newDate, UpdateTableFrame frame) {
-		changeDateOfData(Integer.valueOf(data_id), Integer.valueOf(newDate), frame);
+	public JTable doUpdate(String data_id, String newDate) throws NumberFormatException, SQLException {
+		changeDateOfData(Integer.valueOf(data_id), Integer.valueOf(newDate));
 		return selectAllData();
 	}
 

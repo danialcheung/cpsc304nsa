@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,10 +30,10 @@ public class UpdateTableFrame extends JFrame {
 		this.inputLabel2 = inputLabel2;
 		this.u = u;
 		this.frame = new JFrame();
-		init(table);
+		init(table, false);
 	}
 	
-	public void init(JTable table) {
+	public void init(JTable table, boolean flag) {
 		frame.setLayout(new BorderLayout());
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -100,15 +101,29 @@ public class UpdateTableFrame extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		if (flag) {
+			ErrorFrame error = new ErrorFrame(frame, "Invalid Date");
+            error.setVisible(true);
+		}
 	}
 
 	private void actionAction(ActionEvent e) {
 		JTable table;
-		table = u.doUpdate(text1.getText(), text2.getText(), this);
-		// note: this is a terrible way of updating the JTable but idk lol
-		frame.dispose();
-		frame = new JFrame();
-		init(table);
+		boolean flag = false;
+		try {
+			table = u.doUpdate(text1.getText(), text2.getText());
+			frame.dispose();
+			frame = new JFrame();
+			init(table, flag);
+		} catch (NumberFormatException e1) {
+			ErrorFrame error = new ErrorFrame(frame, "Invalid Date");
+            error.setVisible(true);
+		} catch (SQLException e1) {
+			ErrorFrame error = new ErrorFrame(frame, "Invalid Date");
+            error.setVisible(true);
+		}
+		// note: this is a terrible way of updating the JTable but idk lol		
 	}
 
 	private void closeAction(ActionEvent e) {
