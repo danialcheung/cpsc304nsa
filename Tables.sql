@@ -1,15 +1,15 @@
-drop table if exists police;
-drop table if exists FBI;
-drop table if exists CIA;
-drop table if exists NSA;
-drop table if exists User;
-drop table if exists Transaction;
-drop table if exists Photo;
-drop table if exists Text;
-drop table if exists `Call`;
-drop table if exists CommLog;
-drop table if exists Data;
-drop table if exists Device;
+-- drop table if exists police;
+-- drop table if exists FBI;
+-- drop table if exists CIA;
+-- drop table if exists NSA;
+-- drop table if exists User;
+-- drop table if exists Transaction;
+-- drop table if exists Photo;
+-- drop table if exists Text;
+-- drop table if exists `Call`;
+-- drop table if exists CommLog;
+-- drop table if exists Data;
+-- drop table if exists Device;
 drop table if exists Location;
 
 CREATE TABLE Location(

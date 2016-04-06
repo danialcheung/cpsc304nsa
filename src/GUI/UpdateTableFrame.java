@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -113,15 +116,47 @@ public class UpdateTableFrame extends JFrame {
 		boolean flag = false;
 		try {
 			table = u.doUpdate(text1.getText(), text2.getText());
+			ErrorFrame error;
+			try {
+				if (!u.isIdValid(text1.getText())) {
+					error = new ErrorFrame(frame, "Invalid Data Id");
+				} else {
+					error = new ErrorFrame(frame, "Invalid Date");
+				}
+				error.setVisible(true);
+			} catch (SQLException e2) {
+				ErrorFrame error2 = new ErrorFrame(frame, "Invalid Data Id");
+				error2.setVisible(true);
+			}
 			frame.dispose();
 			frame = new JFrame();
 			init(table, flag);
 		} catch (NumberFormatException e1) {
-			ErrorFrame error = new ErrorFrame(frame, "Invalid Date");
-            error.setVisible(true);
+			ErrorFrame error;
+			try {
+				if (!u.isIdValid(text1.getText())) {
+					error = new ErrorFrame(frame, "Invalid Data Id");
+				} else {
+					error = new ErrorFrame(frame, "Invalid Date");
+				}
+				error.setVisible(true);
+			} catch (SQLException e2) {
+				ErrorFrame error2 = new ErrorFrame(frame, "Invalid Data Id");
+				error2.setVisible(true);
+			}
 		} catch (SQLException e1) {
-			ErrorFrame error = new ErrorFrame(frame, "Invalid Date");
-            error.setVisible(true);
+			ErrorFrame error;
+			try {
+				if (!u.isIdValid(text1.getText())) {
+					error = new ErrorFrame(frame, "Invalid Data Id");
+				} else {
+					error = new ErrorFrame(frame, "Invalid Date");
+				}
+				error.setVisible(true);
+			} catch (SQLException e2) {
+				ErrorFrame error2 = new ErrorFrame(frame, "Invalid Data Id");
+				error2.setVisible(true);
+			}
 		}
 		// note: this is a terrible way of updating the JTable but idk lol		
 	}
