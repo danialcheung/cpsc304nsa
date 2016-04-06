@@ -53,14 +53,10 @@ public class Update extends Query {
 		Statement statement = null; 
 		statement = con.createStatement();
 		rs = statement.executeQuery(query);
-		System.out.println("false1");
 		while (rs.next()) {
-			System.out.println("false2");
 			data.add(rs.getInt("COUNT(data_id)"));
 		}
-		System.out.println("false3");
 		if (data.get(0) == 0) {
-			System.out.println("false4");
 			return false;
 		}
 		return true;
